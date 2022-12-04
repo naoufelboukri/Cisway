@@ -11,7 +11,7 @@ connection.connect((err) => {
     if (!err) {
       console.log("Database is connected ... \n\n");  
     } else {
-      console.log("Error connectinf database ... \n\n");  
+      console.log("Error connecting database ... \n\n");  
     }
 })
 
