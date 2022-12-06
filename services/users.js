@@ -19,9 +19,9 @@ async function getMultiple(page = 1){
 async function create(user){
   const result = await db.query(
     `INSERT INTO users 
-    (username, password, email, address, role_id) 
-    VALUES 
-    (${user.username}, ${user.password}, ${user.email}, ${user.address}, ${user.roleId})`
+    (username, password, email, address, role_id)
+    VALUES
+    ('${user.username}', '${user.password}', '${user.email}', '${user.address}', ${user.roleId});`
   );
 
   let message = 'Error in creating user';

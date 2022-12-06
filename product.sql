@@ -5,15 +5,15 @@ use products;
 -- tables
 -- Table: roles
 CREATE TABLE roles(
-    id INT NOT NULL,
+    id INT NOT NULL auto_increment,
     name VARCHAR(50) NOT NULL,
     CONSTRAINT roles_pk PRIMARY KEY (id)
 );
 
 -- Table: users
 CREATE TABLE users (
-    id INT NOT NULL,
-    username VARCHAR(255) UNIQUE NOT NULL,
+    id INT NOT NULL auto_increment,
+    username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     address VARCHAR(255) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE users (
 
 -- Table: products
 CREATE TABLE products (
-    id INT NOT NULL,
+    id INT NOT NULL auto_increment,
     name VARCHAR(255) NOT NULL,
     price DECIMAL(5,2) NOT NULL,
     user_id INT,
@@ -44,3 +44,10 @@ ALTER TABLE users ADD CONSTRAINT users_roles
     REFERENCES roles (id)
     ON UPDATE CASCADE
     ON DELETE CASCADE;
+
+INSERT INTO roles VALUES 
+(1, 'admin'),
+(2, 'guest');
+
+INSERT INTO users VALUES
+(1, 'Naoufel', 'root', 'naoufel@tkt.paris', '5 rue des bleuets', 1);
