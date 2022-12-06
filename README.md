@@ -11,3 +11,18 @@ Etape 2
 Attention il manque les {id} dans certaines routes (modif, recuperer les info, delete user)
 API/ 
 - UML de la base de données (.pdf)
+
+# Init project
+
+## 1. MySQL installation
+>sudo apt install mysql-server
+
+>sudo etc/init.d/mysql start
+
+>mysql -u root -p
+
+## 2. Initialisation of Database
+>mysql> source product.sql
+
+## 3. Installation des dépendances
+> npm install
