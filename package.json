@@ -1,0 +1,20 @@
+{
+  "name": "project1",
+  "version": "1.0.0",
+  "description": "Etape 1  Ne pas oublier de mettre la description dans la table product Les champs sont tous en minuscule  Ne pas hésiter à poser des question à l'intervenant pour vérifier nos tables et nos diagrammes  Possible d'ajouter des champs dans nos table tant que ça reste logique  Possible d'ajouter une table role",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@rendu-git.etna-alternance.net:module-9231/activity-50328/group-994538.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^2.3.3"
+  }
+}
