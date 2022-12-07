@@ -12,7 +12,7 @@ Attention il manque les {id} dans certaines routes (modif, recuperer les info, d
 API/ 
 - UML de la base de données (.pdf)
 
-# Init project
+# I. Init project
 
 ## 1. MySQL installation
 >sudo apt install mysql-server
@@ -26,3 +26,14 @@ API/
 
 ## 3. Installation des dépendances
 > npm install
+___ 
+
+# Launch the server
+```BASH
+npm run start # npm run dev : For developer mode
+```
+___
+# II. Database
+
+![MCD](./mcd.png)
+

@@ -22,7 +22,7 @@ async function getMultiple(page = 1){
 
 async function create(infos){
   let response = { 
-    success: false,
+    status: 400,
     message: 'Error in creating user'
   };
 
@@ -38,14 +38,16 @@ async function create(infos){
       );
 
       if (result.affectedRows) {
-        response.success = true;
+        response.status = 201;
         response.message = 'User created successfully';
       }
     } else {
-      return user.getStatus();
+      response.message = user.getStatus().message;
+      response.status = 401;
     }
   } else {
     response.message = "This email is already used !";
+    response.status = 401;
   }
   return response;
 }
@@ -57,16 +59,22 @@ async function login(infos) {
     let token = jwt.verify(email[0]['password'], process.env.ACCESS_TOKEN);
     if (infos.password === token['password']) {
       const accessToken = jwt.sign(infos, process.env.ACCESS_TOKEN);
-      return { accessToken: accessToken }
+      return { success: true, accessToken: accessToken }
     } else {
-      return { message: 'Connection failed' };
+      return { success: false, message: 'The email or password incorrect' };
     }
   }
   return { message: 'Cette adresse n\'existe pas !' }
 }
 
+async function me(email) {
+  const user = await db.query(`SELECT username, email, address, role_id FROM users WHERE email = '${email}'`);
+  return user[0];
+}
+
 module.exports = {
   getMultiple,
   create,
-  login
+  login,
+  me
 }
