@@ -1,6 +1,7 @@
 const db = require('./db');
 const helper = require('../helper');
 const config = require('../config');
+const User = require('../models/User');
 
 async function getMultiple(page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
@@ -16,21 +17,23 @@ async function getMultiple(page = 1){
   }
 }
 
-async function create(user){
-  const result = await db.query(
-    `INSERT INTO users 
-    (username, password, email, address, role_id)
-    VALUES
-    ('${user.username}', '${user.password}', '${user.email}', '${user.address}', ${user.roleId});`
-  );
+async function create(infos){
+  let user = new User(infos.username, infos.password, infos.email, infos.address);
+  
+  // const result = await db.query(
+  //   `INSERT INTO users 
+  //   (username, password, email, address, role_id)
+  //   VALUES
+  //   ('${user.username}', '${user.password}', '${user.email}', '${user.address}', ${user.roleId});`
+  // );
 
-  let message = 'Error in creating user';
+  // let message = 'Error in creating user';
 
-  if (result.affectedRows) {
-    message = 'User created successfully';
-  }
+  // if (result.affectedRows) {
+  //   message = 'User created successfully';
+  // }
 
-  return {message};
+  // return {message};
 }
 
 module.exports = {
