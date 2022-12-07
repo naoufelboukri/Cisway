@@ -18,22 +18,33 @@ async function getMultiple(page = 1){
 }
 
 async function create(infos){
-  let user = new User(infos.username, infos.password, infos.email, infos.address);
-  
-  // const result = await db.query(
-  //   `INSERT INTO users 
-  //   (username, password, email, address, role_id)
-  //   VALUES
-  //   ('${user.username}', '${user.password}', '${user.email}', '${user.address}', ${user.roleId});`
-  // );
+  let response = { 
+    success: false,
+    message: 'Error in creating user'
+  };
 
-  // let message = 'Error in creating user';
+  const email = await db.query(`SELECT email FROM users WHERE email = '${infos.email}'`);
+  if (email.length === 0) {
+    let user = new User(infos.username, infos.password, infos.email, infos.address);
+    if (user.getStatus().success) {
+      const result = await db.query(
+        `INSERT INTO users 
+        (username, password, email, address, role_id)
+        VALUES
+        ("${user.username}", "${user.password}", "${user.email}", "${user.address}", ${user.roleId});`
+      );
 
-  // if (result.affectedRows) {
-  //   message = 'User created successfully';
-  // }
-
-  // return {message};
+      if (result.affectedRows) {
+        response.success = true;
+        response.message = 'User created successfully';
+      }
+    } else {
+      return user.getStatus();
+    }
+  } else {
+    response.message = "This email is already used !";
+  }
+  return response;
 }
 
 module.exports = {
