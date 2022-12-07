@@ -7,6 +7,5 @@ const config = {
       database: "products",
     },
     listPerPage: 10,
-    hash: "Mot de passe super secret"
   };
   module.exports = config;

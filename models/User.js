@@ -1,6 +1,5 @@
 const helper = require('../helper');
 const jwt = require('jsonwebtoken');
-const hash = require('../config').hash;
 
 class User {
     constructor (username, password, email, address, roleId = 2) {
@@ -27,7 +26,7 @@ class User {
 }
 
 function hashPassword(pass) {
-    return jwt.sign({password: pass}, hash);
+    return jwt.sign({password: pass}, process.env.ACCESS_TOKEN);
 }
 
 module.exports = User;

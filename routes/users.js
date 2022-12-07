@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const users = require('../services/users');
+const authenticateToken = require('../middlewares/authenticateToken');
 
 /* GET programming languages. */
-router.get('/', async function(req, res, next) {
+router.get('/', authenticateToken, async function(req, res, next) {
   try {
     res.json(await users.getMultiple(req.query.page));
   } catch (err) {
@@ -11,6 +12,15 @@ router.get('/', async function(req, res, next) {
     next(err);
   }
 });
+
+router.post('/login', async function(req, res, next) {
+  try {
+    res.json(await users.login(req.body));
+  } catch(err) {
+    console.error(`Error while loging user`, err.message);
+    next(err);
+  }
+})
 
 router.post('/register', async function(req, res, next) {
   try {
@@ -20,5 +30,9 @@ router.post('/register', async function(req, res, next) {
     next(err);
   }
 });
+
+router.post('/hello', authenticateToken, function(req, res, next) {
+  res.json(req.body);
+})
 
 module.exports = router;

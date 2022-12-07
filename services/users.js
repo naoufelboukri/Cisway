@@ -2,6 +2,9 @@ const db = require('./db');
 const helper = require('../helper');
 const config = require('../config');
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+const { hash } = require('../config');
+
 
 async function getMultiple(page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
@@ -47,7 +50,23 @@ async function create(infos){
   return response;
 }
 
+async function login(infos) {
+  
+  const email = await db.query(`SELECT email, password FROM users WHERE email = '${infos.email}'`);
+  if (email.length > 0) {
+    let token = jwt.verify(email[0]['password'], process.env.ACCESS_TOKEN);
+    if (infos.password === token['password']) {
+      const accessToken = jwt.sign(infos, process.env.ACCESS_TOKEN);
+      return { accessToken: accessToken }
+    } else {
+      return { message: 'Connection failed' };
+    }
+  }
+  return { message: 'Cette adresse n\'existe pas !' }
+}
+
 module.exports = {
   getMultiple,
-  create
+  create,
+  login
 }
