@@ -12,6 +12,9 @@ Attention il manque les {id} dans certaines routes (modif, recuperer les info, d
 API/ 
 - UML de la base de données (.pdf)
 
+# Trucs à changer 
+- Ajouter le middleware admin (/users, /me)
+
 # I. Init project
 
 ## 1. MySQL installation
