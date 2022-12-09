@@ -13,6 +13,7 @@ router.get('/' , async function(req, res, next) {
   }
 });
 
+/* POST user register */
 router.post('/register', async function(req, res, next) {
   try { await UsersController.register(req.body, res) } 
   catch (err) {
@@ -21,6 +22,7 @@ router.post('/register', async function(req, res, next) {
   }
 });
 
+/* POST user login */
 router.post('/login', async function(req, res, next) {
   try { 
     let response = await UsersController.login(req.body); 
@@ -32,6 +34,7 @@ router.post('/login', async function(req, res, next) {
   }
 })
 
+/* GET user info */
 router.get('/me', Auth.authenticateToken, async function(req, res, next) {
   try { await UsersController.me(req.user['email'], res) } 
   catch(err) {
@@ -40,12 +43,20 @@ router.get('/me', Auth.authenticateToken, async function(req, res, next) {
   }
 })
 
-router.put('/:id', async function (req, res, next) {
+/* PUT user Update */
+router.put('/:id', Auth.authenticateToken, async function (req, res, next) {
   try {
-    const response = await users.update(req.params.id, req.body);
-    res.status(201).json(response);
+    await UsersController.update(req.user['email'], req.body, Number(req.params.id), res);
   } catch (err) {
     console.error(`Error while loging user`, err.message);
+    next(err);
+  }
+})
+
+router.get('/get/:id', async function(req, res, next) {
+  try { await UsersController.getUser(req.params.id, res) } 
+  catch (err) {
+    console.error(`Error while creating user`, err.message);
     next(err);
   }
 })
