@@ -28,16 +28,10 @@ class UsersController {
         if (resultEmail.length === 0) {
             const user = new User(request.username, request.password, request.email, request.address);
             if (user.getStatus().success) {
-                const result = await db.query(
-                  `INSERT INTO users 
-                  (username, password, email, address, role_id)
-                  VALUES
-                  ("${user.username}", "${user.password}", "${user.email}", "${user.address}", ${user.roleId});`
-                );
-          
-                if (result.affectedRows) {
-                    message = 'User created successfully';
-                    status = 201;
+                const result = await user.save();
+                if (result !== null) {
+                    message = result.message;
+                    status = result.status;
                 }
             } else {
                 message = user.getStatus().message;
@@ -50,7 +44,7 @@ class UsersController {
         response.status(status).json(message);
     }
 
-    // Login
+    // Sign in user
     static async login(request) {
         const result = await db.query(`SELECT email, password FROM users WHERE email = '${request.email}'`);
         if (result.length > 0) {
@@ -63,10 +57,44 @@ class UsersController {
         return{ message: 'Mail or password invalid !', status: 401};
     }
 
-    // Me
+    // Return all information
     static async me(request, response) {
         let result = await db.query(`SELECT * FROM users WHERE email = '${request}'`);
         return result[0];
+    }
+
+    // Update information
+    static async update(email, request, id, response) {
+        let json = {
+            message: 'Error during the process',
+            status: 403
+        };
+        const user = await User.whereEmail(email);
+        if (user) {
+            if (user.id === id) {
+                for (const index in request) {
+                    if (index === 'username') {
+                        await user.setUsername(request.username);
+                    } else if (index === 'password') {
+                        await user.setPassword(request.password);
+                    } else if (index == 'address') {
+                        await user.setAddress(request.address);
+                    }
+                }
+                json.status = 200;
+                json.message = 'All is ok';
+            } else {
+                json.message = 'Access Denied';
+            }
+        }
+        // Object.assign(request, {email: email});
+        response.status(json.status).json(json);
+    }
+
+    // Get Information of user (root)
+    static async getUser(id, response) {
+        const user = await User.find(id);
+        response.status(200).json(user.infos);
     }
 }
 
