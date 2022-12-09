@@ -33,12 +33,12 @@ class User {
         if (user.length > 0) {
             return User.build(
                 {
+                    id: user[0]['id'],
                     username: user[0]['username'], 
                     password: user[0]['password'], 
                     email: user[0]['email'], 
                     address: user[0]['address'], 
                     roleId: user[0]['role_id'],
-                    id: user[0]['id'],
                 });;
         } else {
             return null;
@@ -61,10 +61,6 @@ class User {
         }
     }
 
-    getStatus() {
-        return this.controls;
-    }
-
     async save() {
         const result = await db.query(
             `INSERT INTO users 
@@ -81,11 +77,17 @@ class User {
         return null;
     }
 
+    async delete() {
+        const result = await db.query(`DELETE FROM users
+        WHERE id = ${this.infos.id}`);
+        return (result.affectedRows > 0) ? 'User deleted':null;
+    }
+
     async setUsername(username) {
         const result = db.query(`UPDATE users
         SET username = '${username}'
         WHERE id = ${this.id}`);
-
+        console.log(result);
         if (result.affectedRows) {
             return 'User updated !';
         }
@@ -112,6 +114,10 @@ class User {
             return 'User updated !';
         }
         return null;
+    }
+
+    getStatus() {
+        return this.controls;
     }
 }
 

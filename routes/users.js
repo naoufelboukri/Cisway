@@ -61,4 +61,15 @@ router.get('/get/:id', async function(req, res, next) {
   }
 })
 
+router.delete('/delete/:id', async function(req, res, next) {
+  try { 
+    const response = await UsersController.delete(req.params.id, res) 
+    res.status(response.status).json(response);
+  }
+  catch (err) {
+    console.error(`Error while creating user`, err.message);
+    next(err);
+  }
+})
+
 module.exports = router;

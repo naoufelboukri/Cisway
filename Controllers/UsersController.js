@@ -96,6 +96,18 @@ class UsersController {
         const user = await User.find(id);
         response.status(200).json(user.infos);
     }
+
+    // Delete user (root)
+    static async delete(id, response) {
+        const user = await User.find(id);
+        if (user !== null) {
+            const resultat = user.delete();
+            if (resultat !== null) {
+                return { message: 'User deleted !', status: 200, user: user };
+            } 
+        }
+        return { message: 'Error during the process..', status: 400 };
+    }
 }
 
 module.exports = UsersController;
