@@ -63,7 +63,7 @@ app.get('/me', Auth.authenticateToken, async function(req, res, next) {
 app.use("/users", userRouter);
 
 /* POST Create New Product */
-app.post('/product/create', async function(req, res, next) {
+app.post('/product/create', Auth.authenticateToken, async function(req, res, next) {
   try { await ProductsController.create(req.body, res) }
   catch(err) {
     console.error(`Error while getting users`, err.message);
@@ -72,7 +72,7 @@ app.post('/product/create', async function(req, res, next) {
 })
 
 /* GET product infos */
-app.get('/product/:id', async function(req, res, next) {
+app.get('/product/:id', Auth.authenticateToken, async function(req, res, next) {
   try { await ProductsController.getProduct(req.params.id, res) }
   catch(err) {
     console.error(`Error while getting users`, err.message);
@@ -81,7 +81,7 @@ app.get('/product/:id', async function(req, res, next) {
 })
 
 /* DELETE product */
-app.delete('/product/:id', async function(req, res, next) {
+app.delete('/product/:id', Auth.authenticateToken, async function(req, res, next) {
   try { await ProductsController.delete(req.params.id, res) }
   catch (err) {
     console.error(`Error while getting users`, err.message);

@@ -3,6 +3,7 @@ const config = require('../services/config');
 const db = require('../services/db');
 
 const Product = require('../models/Product');
+const User = require('../models/User');
 
 class ProductsController {
 
@@ -15,6 +16,17 @@ class ProductsController {
         const data = helper.emptyOrRows(rows);
         const meta = { page };
         response.status(201).json({ data, meta });
+    }
+
+    static async getProductsUser (id, page, res) {
+        const user = await User.find(id);
+        if (user !== false) {
+            const products = await user.getProducts();
+            console.log(products);
+            res.status(200).json(products);
+        } else {
+            res.status(401).json({ message: 'User not found' });
+        }
     }
 
     static async create(request, response) {
