@@ -39,6 +39,20 @@ class ProductsController {
             response.status(401).json({ message: 'Product not fount !' })
         }
     }
+
+    static async delete (id, response) {
+        const product = await Product.find(id);
+        if (product) {
+            const resultat = await product.delete();
+            if (resultat !== null) {
+                response.status(200).json({ message: 'Product deleted !', status: 200 });
+            } else {
+                response.status(400).json({ message: 'Error during the process..' });
+            }
+        } else {   
+            response.status(400).json({ message: 'Product not found !' });
+        }
+    }
 }
 
 

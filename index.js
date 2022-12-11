@@ -80,6 +80,15 @@ app.get('/product/:id', async function(req, res, next) {
   }
 })
 
+/* DELETE product */
+app.delete('/product/:id', async function(req, res, next) {
+  try { await ProductsController.delete(req.params.id, res) }
+  catch (err) {
+    console.error(`Error while getting users`, err.message);
+    next(err);
+  }
+})
+
 app.use("/products", productRouter);
 
 /* Error handler middleware */

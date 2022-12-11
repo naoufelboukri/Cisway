@@ -48,7 +48,7 @@ class Product {
     }
 
     async delete() {
-        const result = await db.query(`DELETE FROM users WHERE id = ${this.id}`);
+        const result = await db.query(`DELETE FROM products WHERE id = ${this.id}`);
         return (result.affectedRows > 0) ? 'User deleted' : null;
     }
 }
