@@ -30,6 +30,15 @@ class ProductsController {
             response.status(401).json({ message: product });
         }
     }
+
+    static async getProduct (id, response) {
+        const product = await Product.find(id);
+        if (product !== false) {
+            response.status(200).json(product);
+        } else {
+            response.status(401).json({ message: 'Product not fount !' })
+        }
+    }
 }
 
 

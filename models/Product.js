@@ -3,6 +3,9 @@ const db = require('../services/db');
 
 class Product {
     constructor (name, price, description, id = null) { 
+        if (id !== null) {
+            this.id = id;
+        }
         this.name = name;
         this.price = price;
         this.description = description;
@@ -10,13 +13,13 @@ class Product {
     }
 
     static build (params) {
-        const controlName = helper.validate('name', params.name, ['required', 'length(4,255)']);
+        const controlName = helper.validate('name', params.name, ['required', 'length(2,255)']);
         const controlPrice = helper.validate('price', params.price, ['required', 'number']);
         const controlDescription = helper.validate('description', params.description, ['required']);
         if (controlName !== true) { return controlName }
         if (controlPrice !== true) { return controlPrice }
         if (controlDescription !== true) { return controlDescription }
-        return new Product(params.name, params.price, params.description);
+        return new Product(params.name, params.price, params.description, params.id);
     }
 
     static async find(id) {

@@ -8,6 +8,7 @@ const UsersController = require('./Controllers/UsersController');
 
 const userRouter = require("./routes/users");
 const productRouter = require("./routes/products");
+const ProductsController = require("./Controllers/ProductsController");
 
 
 
@@ -60,6 +61,24 @@ app.get('/me', Auth.authenticateToken, async function(req, res, next) {
 })
 
 app.use("/users", userRouter);
+
+/* POST Create New Product */
+app.post('/product/create', async function(req, res, next) {
+  try { await ProductsController.create(req.body, res) }
+  catch(err) {
+    console.error(`Error while getting users`, err.message);
+    next(err);
+  }
+})
+
+/* GET product infos */
+app.get('/product/:id', async function(req, res, next) {
+  try { await ProductsController.getProduct(req.params.id, res) }
+  catch(err) {
+    console.error(`Error while getting users`, err.message);
+    next(err);
+  }
+})
 
 app.use("/products", productRouter);
 
