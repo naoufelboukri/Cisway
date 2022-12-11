@@ -43,7 +43,7 @@ class ProductsController {
         }
     }
 
-    static async getProduct (id, response) {
+    static async getProduct(id, response) {
         const product = await Product.find(id);
         if (product !== false) {
             response.status(200).json(product);
@@ -52,7 +52,7 @@ class ProductsController {
         }
     }
 
-    static async delete (id, response) {
+    static async delete(id, response) {
         const product = await Product.find(id);
         if (product) {
             const resultat = await product.delete();
@@ -64,6 +64,44 @@ class ProductsController {
         } else {   
             response.status(400).json({ message: 'Product not found !' });
         }
+    }
+
+    static async update(request, id, response) {
+        let json = {
+            message: 'Product updated successfully',
+            status: 200
+        };
+
+        const product = Product.find(id);
+        if (product) {
+            for (index in request) {
+                if (index === 'name') {
+                    const newName = await setName(request.name);
+                    if (newName !== true) {
+                        json.message = newName;
+                        json.status = 401;
+                    }
+                }
+                if (index === 'price') {
+                    const newPrice = await setPrice(request.price);
+                    if (newPrice !== true) {
+                        json.message = newPrice;
+                        json.status = 401;
+                    }
+                }
+                if (index === 'description') {
+                    const description = await setDescription(request.description);
+                    if (description !== true) {
+                        json.message = description;
+                        json.status = 401;
+                    }
+                }
+            }
+        } else {
+            json.status = 401;
+            json.message = 'Product not found';
+        }
+        response.status(json.status).json(json);
     }
 }
 

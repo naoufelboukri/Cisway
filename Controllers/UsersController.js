@@ -103,7 +103,6 @@ class UsersController {
             json.message = 'User not found !';
             json.status = 401;
         }
-        // Object.assign(request, {email: email});
         response.status(json.status).json(json);
     }
 

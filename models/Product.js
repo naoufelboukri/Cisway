@@ -51,6 +51,45 @@ class Product {
         const result = await db.query(`DELETE FROM products WHERE id = ${this.id}`);
         return (result.affectedRows > 0) ? 'User deleted' : null;
     }
+
+    async setName(name) {
+        let output = helper.validate('name', name, ['required', 'length(2-255)']);
+        if (output === true) {
+            const result = await db.query(`UPDATE products SET name = '${name}' WHERE email = '${this.name}'`);
+            if (!result.affectedRows) {
+                output = 'Error during the process';
+            } else {
+                this.name = name;
+            }
+        }
+        return output;
+    }
+
+    async setPrice(price) {
+        let output = helper.validate('price', price, ['required', 'number']);
+        if (output === true) {
+            const result = await db.query(`UPDATE products SET price = '${price}' WHERE email = '${this.price}'`);
+            if (!result.affectedRows) {
+                output = 'Error during the process';
+            } else {
+                this.price = price;
+            }
+        }
+        return output;
+    }
+
+    async setDescription(description) {
+        let output = helper.validate('description', description, ['required']);
+        if (output === true) {
+            const result = await db.query(`UPDATE products SET description = '${description}' WHERE email = '${this.description}'`);
+            if (!result.affectedRows) {
+                output = 'Error during the process';
+            } else {
+                this.description = description;
+            }
+        }
+        return output;
+    }
 }
 
 module.exports = Product;
