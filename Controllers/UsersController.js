@@ -1,5 +1,5 @@
-const helper = require('../helper');
-const config = require('../config');
+const helper = require('../services/helper');
+const config = require('../services/config');
 const db = require('../services/db');
 const jwt = require('jsonwebtoken');
 
@@ -21,30 +21,30 @@ class UsersController {
 
     // Create new account
     static async register(request, response) {
-        let message = 'Error during the process..';
         let status = 401;
-
-        const resultEmail = await db.query(`SELECT email FROM users WHERE email = '${request.email}'`);
-        if (resultEmail.length === 0) {
-            const user = new User(request.username, request.password, request.email, request.address);
-            if (user.getStatus().success) {
+        let output = { message: "Error during the process !" };
+        const user = User.build(request);
+        const resultEmail = await User.whereEmail(request.email);
+        if (!resultEmail) {
+            if (user.active) {
                 const result = await user.save();
-                if (result !== null) {
-                    message = result.message;
-                    status = result.status;
+                console.log(result);
+                if (result) {
+                    status = 201;
+                    output = user;
                 }
             } else {
-                message = user.getStatus().message;
                 status = 401;
+                output = { message: user };
             }
         } else {
-            message = "This email is already used !";
             status = 401;
+            output = { message: "This email is already used !" };
         }
-        response.status(status).json(message);
+        response.status(status).json(output);
     }
 
-    // Sign in user
+    // // Sign in user
     static async login(request) {
         const result = await db.query(`SELECT email, password FROM users WHERE email = '${request.email}'`);
         if (result.length > 0) {
@@ -57,53 +57,73 @@ class UsersController {
         return{ message: 'Mail or password invalid !', status: 401};
     }
 
-    // Return all information
+    // // Return all information
     static async me(request, response) {
         let result = await db.query(`SELECT * FROM users WHERE email = '${request}'`);
-        return result[0];
+        response.status(200).json(result[0]);
     }
 
-    // Update information
+    // // Update information
     static async update(email, request, id, response) {
         let json = {
-            message: 'Error during the process',
-            status: 403
+            message: 'User edited successfully !',
+            status: 200
         };
         const user = await User.whereEmail(email);
         if (user) {
             if (user.id === id) {
-                for (const index in request) {
-                    if (index === 'username') {
-                        await user.setUsername(request.username);
-                    } else if (index === 'password') {
-                        await user.setPassword(request.password);
-                    } else if (index == 'address') {
-                        await user.setAddress(request.address);
+                for (let index in request) {
+                    if (index = 'username') {   
+                        const newUsername = await user.setUsername(request.username);
+                        if (newUsername !== true) {
+                            json.message = newUsername;
+                            json.status = 401;
+                        }
+                    } 
+                    if (index = 'password') {   
+                        const newPassword = await user.setPassword(request.password);
+                        if (newPassword !== true) {
+                            json.message = newPassword;
+                            json.status = 401;
+                        }
+                    }
+                    if (index = 'address') {   
+                        const newAddress = await user.setAddress(request.address);
+                        if (newAddress !== true) {
+                            json.message = newAddress;
+                            json.status = 401;
+                        }
                     }
                 }
-                json.status = 200;
-                json.message = 'All is ok';
             } else {
-                json.message = 'Access Denied';
+                json.message = 'Error during the process';
+                json.status = 401;
             }
+        } else {
+            json.message = 'User not found !';
+            json.status = 401;
         }
         // Object.assign(request, {email: email});
         response.status(json.status).json(json);
     }
 
-    // Get Information of user (root)
-    static async getUser(id, response) {
+    // // Get Information of user (root)
+    static async getUser(id) {
         const user = await User.find(id);
-        response.status(200).json(user.infos);
+        if (user.active) {
+            return { user: user, status: 200 };
+        } else {
+            return { message: 'User not found !', status: 401 }
+        }
     }
 
-    // Delete user (root)
-    static async delete(id, response) {
+    // // Delete user (root)
+    static async delete(id) {
         const user = await User.find(id);
-        if (user !== null) {
+        if (user) {
             const resultat = user.delete();
             if (resultat !== null) {
-                return { message: 'User deleted !', status: 200, user: user };
+                return { message: 'User deleted !', status: 200 };
             } 
         }
         return { message: 'Error during the process..', status: 400 };

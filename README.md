@@ -14,6 +14,7 @@ API/
 
 # Trucs à changer 
 - Ajouter le middleware admin (/users, /me)
+- Modifier le MCD !!
 
 # I. Init project
 
@@ -25,7 +26,7 @@ API/
 >mysql -u root -p
 
 ## 2. Initialisation of Database
->mysql> source product.sql
+>mysql> source services/product.sql
 
 ## 3. Installation des dépendances
 > npm install

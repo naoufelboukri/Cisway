@@ -1,64 +1,64 @@
-const helper = require('../helper');
+const helper = require('../services/helper');
 const jwt = require('jsonwebtoken');
 const db = require('../services/db');
 
 class User {
-    constructor (username, password, email, address, roleId = 2, id = null) {
-        this.controls = helper.objectValidation({
-            username: [username, ['required', 'length(3,255)']],
-            password: [password, ['required', 'password']],
-            email: [email, ['required', 'email']],
-            address: [address, ['required']],
-            roleId: [roleId, ['int']],
-        });
-        
-        if (this.controls.success) {  
-            this.infos = {
-                username: username,
-                password: hashPassword(password),
-                email: email,
-                address: address,
-                roleId: roleId,
-                id: (id === null) ? null : id
-            };
+    constructor (username, password, email, address, roleId = 2, id = null) { 
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.address = address;
+        this.roleId = roleId;
+        if (id !== null) {
+            this.id = id;
         }
+        this.active = true;
     }
 
     static build (params) {
-        return new User(params.username, params.password, params.email, params.address, params.roleId, params.id);
+        const controlUsername = helper.validate('username', params.username, ['required', 'length(4,255)']);
+        const controlPassword = helper.validate('password', params.password, ['required', 'password']);
+        const controlEmail = helper.validate('email', params.email, ['required', 'email']);
+        const controlAddress = helper.validate('address', params.address, ['required', 'length(5,255)']);
+        const controlRoleId = helper.validate('role', Number(params.role_id), ['int']);
+        if (controlUsername !== true) { return controlUsername }
+        if (controlPassword !== true) { return controlPassword }
+        if (controlEmail !== true) { return controlEmail }
+        if (controlAddress !== true) { return controlAddress }
+        if (controlRoleId !== true) { return controlRoleId }
+        return new User(params.username, params.password, params.email, params.address, params.role_id, params.id);
     }
 
     static async find(id) {
         const user = await db.query(`SELECT * FROM users WHERE id = ${id}`);
         if (user.length > 0) {
             return User.build(
-                {
-                    id: user[0]['id'],
-                    username: user[0]['username'], 
-                    password: user[0]['password'], 
-                    email: user[0]['email'], 
-                    address: user[0]['address'], 
-                    roleId: user[0]['role_id'],
-                });;
-        } else {
-            return null;
+            {
+                id: user[0]['id'],
+                username: user[0]['username'], 
+                password: user[0]['password'], 
+                email: user[0]['email'], 
+                address: user[0]['address'], 
+                role_id: user[0]['role_id'],
+            });
         }
+        return false;
     }
+
     static async whereEmail(email) {
         const user = await db.query(`SELECT * FROM users WHERE email = '${email}'`);
         if (user.length > 0) {
             return User.build(
-                {
-                    username: user[0]['username'], 
-                    password: user[0]['password'], 
-                    email: user[0]['email'], 
-                    address: user[0]['address'], 
-                    roleId: user[0]['role_id'],
-                    id: user[0]['id'],
-                });
-        } else {
-            return null;
+            {
+                id: user[0]['id'],
+                username: user[0]['username'], 
+                password: user[0]['password'], 
+                email: user[0]['email'], 
+                address: user[0]['address'], 
+                role_id: user[0]['role_id'],
+            });
         }
+        return false;
     }
 
     async save() {
@@ -66,63 +66,62 @@ class User {
             `INSERT INTO users 
             (username, password, email, address, role_id)
             VALUES
-            ("${user.username}", "${user.password}", "${user.email}", "${user.address}", ${user.roleId});`
-        );
-        
+            ("${this.username}", "${hashPassword(this.password)}", "${this.email}", "${this.address}", ${this.roleId});`
+        );  
         if (result.affectedRows) {
-              const id = await db.query(`SELECT id FROM users WHERE email = '${email}'`);
+              const id = await db.query(`SELECT id FROM users WHERE email = '${this.email}'`);
               this.id = id[0].id;
-              return { message: 'User created successfully', status: 201 };
+              return true;
           }
-        return null;
+        return false;
     }
 
     async delete() {
-        const result = await db.query(`DELETE FROM users
-        WHERE id = ${this.infos.id}`);
-        return (result.affectedRows > 0) ? 'User deleted':null;
+        const result = await db.query(`DELETE FROM users WHERE id = ${this.id}`);
+        return (result.affectedRows > 0) ? 'User deleted' : null;
     }
 
     async setUsername(username) {
-        const result = db.query(`UPDATE users
-        SET username = '${username}'
-        WHERE id = ${this.id}`);
-        console.log(result);
-        if (result.affectedRows) {
-            return 'User updated !';
+        let output = helper.validate('username', username, ['required', 'length(4-255)']);
+        if (output === true) {
+            const result = await db.query(`UPDATE users SET username = '${username}' WHERE email = '${this.email}'`);
+            if (!result.affectedRows) {
+                output = 'Error during the process';
+            } else {
+                this.username = username;
+            }
         }
-        return null;
+        return output;
     }
 
-    async setPassword(pass) {
-        const result = db.query(`UPDATE users
-        SET password = '${hashPassword(pass)}'
-        WHERE id = ${this.id}`);
-
-        if (result.affectedRows) {
-            return 'User updated !';
+    async setPassword(password) {
+        let output = helper.validate('password', password, ['required', 'password']);
+        if (output === true) {
+            const result = await db.query(`UPDATE users SET password = '${hashPassword(password)}' WHERE email = '${this.email}'`);
+            if (!result.affectedRows) {
+                output = 'Error during the process';
+            } else {
+                this.password = password;
+            }
         }
-        return null;
+        return output;
     }
 
     async setAddress(address) {
-        const result = db.query(`UPDATE users
-        SET address = '${address}'
-        WHERE id = ${this.id}`);
-
-        if (result.affectedRows) {
-            return 'User updated !';
+        let output = helper.validate('address', address, ['required', 'length(4-255)']);
+        if (output === true) {
+            const result = await db.query(`UPDATE users SET address = '${address}' WHERE email = '${this.email}'`);
+            if (!result.affectedRows) {
+                output = 'Error during the process';
+            } else {
+                this.address = address;
+            }
         }
-        return null;
-    }
-
-    getStatus() {
-        return this.controls;
+        return output;
     }
 }
 
 function hashPassword(pass) {
     return jwt.sign({password: pass}, process.env.ACCESS_TOKEN);
 }
-
 module.exports = User;

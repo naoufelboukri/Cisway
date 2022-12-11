@@ -1,19 +1,68 @@
 const express = require("express");
 const app = express();
-const port = 3000;
-const userRouter = require("./routes/users");
 require('dotenv').config()
 
+const Auth = require('./middlewares/authenticateToken');
+
+const UsersController = require('./Controllers/UsersController');
+
+const userRouter = require("./routes/users");
+// const productRouter = require("./routes/products");
+
+
+
 app.use(express.json());
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
+app.use( express.urlencoded({ extended: true }));
+
 app.get("/", (req, res) => {
-  res.json({ message: "ok" });
+  res.status(200).json({ message: "Serveur ok" });
 });
+
+/**
+ * Name: User Register
+ * 
+ * Description: Route called to create a new user in the database
+ * 
+ * Request.body: 
+ *    username: string(255),
+ *    password: string(255), 
+ *    email: string(255), 
+ *    address: string(255), 
+ *    [role_id]: int
+ */
+app.post('/register', async function(req, res, next) {
+  try { await UsersController.register(req.body, res) } 
+  catch (err) {
+    console.error(`Error while creating user`, err.message);
+    next(err);
+  }
+});
+
+// /* POST user login */
+app.post('/login', async function(req, res, next) {
+  try { 
+    let response = await UsersController.login(req.body); 
+    res.status(response.status).json(response); 
+  } 
+  catch(err) {
+    console.error(`Error while loging user`, err.message);
+    next(err);
+  }
+})
+
+// /* GET user info */
+app.get('/me', Auth.authenticateToken, async function(req, res, next) {
+  try { await UsersController.me(req.user['email'], res) } 
+  catch(err) {
+    console.error(`Error while loging user`, err.message);
+    next(err);
+  }
+})
+
 app.use("/users", userRouter);
+
+// app.use("/products", productRouter);
+
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
@@ -21,6 +70,7 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({ message: err.message });
   return;
 });
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+
+app.listen(process.env.PORT, () => {
+  console.log(`Example app listening at http://localhost:${process.env.PORT}`);
 });
