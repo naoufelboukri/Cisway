@@ -12,4 +12,13 @@ router.get('/' , async function(req, res, next) {
   }
 });
 
+/* POST Create New Product */
+router.post('/create', async function(req, res, next) {
+  try { await ProductsController.create(req.body, res) }
+  catch(err) {
+    console.error(`Error while getting users`, err.message);
+    next(err);
+  }
+})
+
 module.exports = router;

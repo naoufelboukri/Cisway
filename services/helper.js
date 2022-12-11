@@ -83,6 +83,10 @@ function validate (name, value, rules) {
             if (!validator.isLength(value, {min: min, max: max})) {
                 return "The field '"+ name +"' is incorrect ! It has to be between "+ min +" and "+ max +" caracters !";
             }
+        } else if (rule === 'number') {
+            if (!validator.isDecimal(value)) {
+                return  "The field '"+ name +"' is incorrect ! Please enter a valid number.";
+            }
         }
     }
     return true;

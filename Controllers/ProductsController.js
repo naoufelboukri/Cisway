@@ -1,6 +1,8 @@
-const helper = require('../helper');
-const config = require('../config');
+const helper = require('../services/helper');
+const config = require('../services/config');
 const db = require('../services/db');
+
+const Product = require('../models/Product');
 
 class ProductsController {
 
@@ -15,6 +17,19 @@ class ProductsController {
         response.status(201).json({ data, meta });
     }
 
+    static async create(request, response) {
+        const product = Product.build(request);
+        if (product.active) {
+            const result = await product.save();
+            if (result) {
+                response.status(200).json({ message: 'Product created successfully' });
+            } else {
+                response.status(401).json({ message: 'Error during the process..' });
+            }
+        } else {
+            response.status(401).json({ message: product });
+        }
+    }
 }
 
 

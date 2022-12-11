@@ -7,7 +7,7 @@ const Auth = require('./middlewares/authenticateToken');
 const UsersController = require('./Controllers/UsersController');
 
 const userRouter = require("./routes/users");
-// const productRouter = require("./routes/products");
+const productRouter = require("./routes/products");
 
 
 
@@ -61,7 +61,7 @@ app.get('/me', Auth.authenticateToken, async function(req, res, next) {
 
 app.use("/users", userRouter);
 
-// app.use("/products", productRouter);
+app.use("/products", productRouter);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {
