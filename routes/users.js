@@ -4,15 +4,6 @@ const router = express.Router();
 const UsersController = require('../Controllers/UsersController');
 const Auth = require('../middlewares/authenticateToken');
 
-/* GET users. */
-router.get('/' , Auth.rootAuthentificationToken, async function(req, res, next) {
-  try { await UsersController.getUsers(req.query.page, res) } 
-  catch (err) {
-    console.error(`Error while getting users`, err.message);
-    next(err);
-  }
-});
-
 /* PUT user Update */
 router.put('/:id', Auth.authenticateToken, async function (req, res, next) {
   try {
@@ -25,10 +16,7 @@ router.put('/:id', Auth.authenticateToken, async function (req, res, next) {
 
 /* GET information of one unique user */
 router.get('/:id', Auth.authenticateToken, async function(req, res, next) {
-  try { 
-    const response = await UsersController.getUser(req.params.id);
-    res.status(response.status).json(response); 
-  } 
+  try { await UsersController.getUser(req.params.id, req.user['email'], res) } 
   catch (err) {
     console.error(`Error while creating user`, err.message);
     next(err);

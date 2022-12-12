@@ -60,7 +60,16 @@ app.get('/me', Auth.authenticateToken, async function(req, res, next) {
   }
 })
 
-app.use("/users", userRouter);
+/* GET users. */
+router.get('/users' , Auth.rootAuthentificationToken, async function(req, res, next) {
+  try { await UsersController.getUsers(req.query.page, res) } 
+  catch (err) {
+    console.error(`Error while getting users`, err.message);
+    next(err);
+  }
+});
+
+app.use("/user", userRouter);
 
 /* POST Create New Product */
 app.post('/product/create', Auth.authenticateToken, async function(req, res, next) {

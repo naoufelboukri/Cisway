@@ -20,6 +20,7 @@ function authenticateToken(req, res, next) {
     if (token === null) return res.sendStatus(401);
 
     jwt.verify(token, process.env.ACCESS_TOKEN, async (err, user) => {
+        if (user === undefined) return res.sendStatus(403);
         const userVerif = await User.whereEmail(user.email);
         if (err || userVerif.roleId != 1) return res.sendStatus(403);
             req.user = user;

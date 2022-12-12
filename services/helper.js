@@ -61,29 +61,29 @@ function objectValidation(object) {
 function validate (name, value, rules) {
     for (const rule of rules) {
         if (rule === 'required') {
-            if (value === null || validator.isEmpty(value)) {
+            if (value === null || value === undefined || validator.isEmpty(value)) {
                 return "The field '"+ name +"' is mandatory !";
             }
-        } else if (rule === 'password') {
+        } else if (rule === 'password' && rules.includes('required')) {
             if (!validator.isStrongPassword(value)) {
                 return  "The field '"+ name +"' has to be more than 7 characters containing numbers upper case and lower case letters  !";
             }
-        } else if (rule === 'email') {
+        } else if (rule === 'email' && rules.includes('required')) {
             if (!validator.isEmail(value)) {
                 return  "The field '"+ name +"' is incorrect ! Please enter a valid email.";
             }
-        } else if (rule === 'int') {
+        } else if (rule === 'int' && rules.includes('required')) {
             if (!Number.isInteger(value)) {
                 return  "The field '"+ name +"' is incorrect ! Please enter a valid role.";
             }
-        } else if (rule.match(/^length*/)) {
+        } else if (rule.match(/^length*/) && rules.includes('required')) {
             let parameters = [...rule.matchAll(/(\d+)/g)];
             let min = parameters[0][0];
             let max = parameters[1][0];
             if (!validator.isLength(value, {min: min, max: max})) {
                 return "The field '"+ name +"' is incorrect ! It has to be between "+ min +" and "+ max +" caracters !";
             }
-        } else if (rule === 'number') {
+        } else if (rule === 'number' && rules.includes('required')) {
             if (!validator.isDecimal(value)) {
                 return  "The field '"+ name +"' is incorrect ! Please enter a valid number.";
             }

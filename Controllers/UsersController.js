@@ -107,12 +107,17 @@ class UsersController {
     }
 
     // // Get Information of user (root)
-    static async getUser(id) {
+    static async getUser(id, emailLogged, response) {
+        const userLogged = await User.whereEmail(emailLogged);
         const user = await User.find(id);
-        if (user.active) {
-            return { user: user, status: 200 };
+        if (userLogged.active && (userLogged.id === user.id || userLogged.roleId == 1)) {
+            if (user.active) {
+                response.status(200).json(user);
+            } else {
+                response.status(401).json({ message: 'User Not Found !' });
+            }
         } else {
-            return { message: 'User not found !', status: 401 }
+            response.sendStatus(403);
         }
     }
 
