@@ -115,7 +115,7 @@ class UsersController {
             if (user.active) {
                 response.status(200).json(user);
             } else {
-                response.status(401).json({ message: 'User Not Found !' });
+                response.status(401).json({ message: 'User not found !' });
             }
         } else {
             response.sendStatus(403);
@@ -123,15 +123,23 @@ class UsersController {
     }
 
     // // Delete user (root)
-    static async delete(id) {
-        const user = await User.find(id);
-        if (user) {
-            const resultat = user.delete();
-            if (resultat !== null) {
-                return { message: 'User deleted !', status: 200 };
-            } 
+    static async delete(id, email, response) {
+        const userTarget = await User.find(id);
+        const userLogged = await User.whereEmail(email);
+        if (userTarget.active) {
+            if (userLogged.id === Number(id) || userLogged.roleId === 1) {
+                const resultat = userTarget.delete(id);
+                if (resultat !== null) {
+                    response.status(200).json({ message: 'User deleted successfully !' });
+                } else {
+                    response.status(401).json('Error during the process..');
+                }
+            } else {
+                response.sendStatus(403);
+            }
+        } else {
+            response.status(401).json({ message: 'User not found' });
         }
-        return { message: 'Error during the process..', status: 400 };
     }
 }
 

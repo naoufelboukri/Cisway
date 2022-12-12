@@ -25,10 +25,7 @@ router.get('/:id', Auth.authenticateToken, async function(req, res, next) {
 
 /* DELETE existing user */
 router.delete('/:id', Auth.authenticateToken, async function(req, res, next) {
-  try { 
-    const response = await UsersController.delete(req.params.id, res) 
-    res.status(response.status).json(response);
-  }
+  try { await UsersController.delete(req.params.id, req.user['email'], res) }
   catch (err) {
     console.error(`Error while creating user`, err.message);
     next(err);
