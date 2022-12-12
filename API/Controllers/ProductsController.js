@@ -18,7 +18,7 @@ class ProductsController {
         response.status(201).json({ data, meta });
     }
 
-    static async getProductsUser (id, page, res) {
+    static async getProductsUser(id, page, res) {
         const user = await User.find(id);
         if (user !== false) {
             const products = await user.getProducts();
@@ -29,11 +29,13 @@ class ProductsController {
         }
     }
 
-    static async create(request, response) {
+    static async create(request, response, email = null) {
+        const userLogged = (email !== null) ? await User.whereEmail(email) : null;
         const product = Product.build(request);
         if (product.active) {
             const result = await product.save();
-            if (result) {
+            const resultAssociation = await product.associate(userLogged.id);
+            if (result && resultAssociation && userLogged !== null) {
                 response.status(200).json({ message: 'Product created successfully' });
             } else {
                 response.status(401).json({ message: 'Error during the process..' });

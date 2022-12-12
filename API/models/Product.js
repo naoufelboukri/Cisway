@@ -47,6 +47,16 @@ class Product {
         return (result.affectedRows) ? true : false;
     }
 
+    async associate(idUser) {
+        const result = await db.query(
+            `INSERT INTO product_user 
+            (product_id, user_id)
+            VALUES
+            (${this.id}, ${idUser});`
+        );  
+        return (result.affectedRows) ? true : false;
+    }
+
     async delete() {
         const result = await db.query(`DELETE FROM products WHERE id = ${this.id}`);
         return (result.affectedRows > 0) ? 'User deleted' : null;

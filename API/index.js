@@ -73,7 +73,7 @@ app.use("/user", userRouter);
 
 /* POST Create New Product */
 app.post('/product/create', Auth.authenticateToken, async function(req, res, next) {
-  try { await ProductsController.create(req.body, res) }
+  try { await ProductsController.create(req.body, res, req.user['email']) }
   catch(err) {
     console.error(`Error while getting users`, err.message);
     next(err);
