@@ -60,8 +60,8 @@ app.get('/me', Auth.authenticateToken, async function(req, res, next) {
   }
 })
 
-/* GET users. */
-router.get('/users' , Auth.rootAuthentificationToken, async function(req, res, next) {
+/* GET All users */
+app.get('/users' , Auth.rootAuthentificationToken, async function(req, res, next) {
   try { await UsersController.getUsers(req.query.page, res) } 
   catch (err) {
     console.error(`Error while getting users`, err.message);

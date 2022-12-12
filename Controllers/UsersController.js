@@ -69,26 +69,27 @@ class UsersController {
             message: 'User edited successfully !',
             status: 200
         };
-        const user = await User.whereEmail(email);
-        if (user) {
-            if (user.id === id) {
+        const userLogged = await User.whereEmail(email);
+        const userTarget = await User.find(id);
+        if (userTarget) {
+            if (userLogged.id === id || userLogged.roleId === 1) {
                 for (let index in request) {
-                    if (index = 'username') {   
-                        const newUsername = await user.setUsername(request.username);
+                    if (index === 'username') { 
+                        const newUsername = await userTarget.setUsername(request.username);
                         if (newUsername !== true) {
                             json.message = newUsername;
                             json.status = 401;
                         }
                     } 
-                    if (index = 'password') {   
-                        const newPassword = await user.setPassword(request.password);
+                    if (index === 'password') {   
+                        const newPassword = await userTarget.setPassword(request.password);
                         if (newPassword !== true) {
                             json.message = newPassword;
                             json.status = 401;
                         }
                     }
-                    if (index = 'address') {   
-                        const newAddress = await user.setAddress(request.address);
+                    if (index === 'address') {  
+                        const newAddress = await userTarget.setAddress(request.address);
                         if (newAddress !== true) {
                             json.message = newAddress;
                             json.status = 401;

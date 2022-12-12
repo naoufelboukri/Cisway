@@ -84,7 +84,7 @@ class User {
     async setUsername(username) {
         let output = helper.validate('username', username, ['required', 'length(4-255)']);
         if (output === true) {
-            const result = await db.query(`UPDATE users SET username = '${username}' WHERE email = '${this.email}'`);
+            const result = await db.query(`UPDATE users SET username = "${username}" WHERE email = '${this.email}'`);
             if (!result.affectedRows) {
                 output = 'Error during the process';
             } else {
@@ -97,7 +97,7 @@ class User {
     async setPassword(password) {
         let output = helper.validate('password', password, ['required', 'password']);
         if (output === true) {
-            const result = await db.query(`UPDATE users SET password = '${hashPassword(password)}' WHERE email = '${this.email}'`);
+            const result = await db.query(`UPDATE users SET password = "${hashPassword(password)}" WHERE email = '${this.email}'`);
             if (!result.affectedRows) {
                 output = 'Error during the process';
             } else {
@@ -110,7 +110,7 @@ class User {
     async setAddress(address) {
         let output = helper.validate('address', address, ['required', 'length(4-255)']);
         if (output === true) {
-            const result = await db.query(`UPDATE users SET address = '${address}' WHERE email = '${this.email}'`);
+            const result = await db.query(`UPDATE users SET address = "${address}" WHERE email = '${this.email}'`);
             if (!result.affectedRows) {
                 output = 'Error during the process';
             } else {
