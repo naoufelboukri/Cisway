@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
       user-login works!
     </p>
   `,
-  styles: [
+  styles: [ 
   ]
 })
 export class UserLoginComponent {
