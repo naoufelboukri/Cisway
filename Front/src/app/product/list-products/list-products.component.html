@@ -1,3 +1,15 @@
-<div class="container">
-    carte
+<div class="container mt-5">
+    <div class="row row-cols-4">
+        <div *ngFor="let product of productList">
+            <div class="card mt-2 mb-2 onClick" (click)="goToProduct(product)">
+                <img src="https://cdn.pixabay.com/photo/2018/07/26/07/45/valais-3562988_640.jpg" class="card-img-top" alt="Montagnes">
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <h6 class="card-subtitle text-muted">{{ product.price }}</h6>
+                    <p class="card-text">{{ product.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
