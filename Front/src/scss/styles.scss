@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '_variables.scss';
+
+@for $i from 0 through 10{
+    .fts-#{$i} {
+        font-size: 18px + $i;
+    }
+
+    .letter-spacing-#{$i} {
+        letter-spacing: 0px + $i;
+    }
+}
+
+
+.onClick {
+    cursor: pointer;
+} 
+
+nav {
+    background-color: $primary;
+    span {
+        color: white;
+    }
+}
