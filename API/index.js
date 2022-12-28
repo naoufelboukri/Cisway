@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 const app = express();
 require('dotenv').config()
 
@@ -14,7 +15,7 @@ const ProductsController = require("./Controllers/ProductsController");
 
 app.use(express.json());
 app.use( express.urlencoded({ extended: true }));
-
+app.use(cors());
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Serveur ok" });
 });
