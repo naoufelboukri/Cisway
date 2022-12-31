@@ -11,7 +11,9 @@ export class ListProductsComponent implements OnInit{
   productList: Product[];
   row: number;
 
-  constructor(private router: Router, private productService: ProductService) { }
+  constructor(private router: Router, private productService: ProductService) { 
+
+  }
 
   ngOnInit() {
     this.productList = this.productService.getProductList();

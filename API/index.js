@@ -44,7 +44,7 @@ app.post('/register', async function(req, res, next) {
 app.post('/login', async function(req, res, next) {
   try { 
     let response = await UsersController.login(req.body); 
-    res.status(response.status).json(response); 
+    res.status(response.status).json((response.status) === 200 ? response.accessToken : response); 
   } 
   catch(err) {
     console.error(`Error while loging user`, err.message);

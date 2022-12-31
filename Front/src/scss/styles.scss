@@ -12,13 +12,19 @@
     }
 }
 
+@each $color, $name in $colors {
+    .bg-#{$name} {
+        background-color: $color;
+    }
+}
+
 
 .onClick {
     cursor: pointer;
 } 
 
 nav {
-    background-color: $primary;
+    background-color: $customPrimary;
     span {
         color: white;
     }
