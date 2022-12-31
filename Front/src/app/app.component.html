@@ -24,7 +24,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <app-login></app-login>
+                <app-login *ngIf="!_authService.loggedIn"></app-login>
+                <app-profile *ngIf="_authService.loggedIn"></app-profile>
             </div>
         </div>
     </div>

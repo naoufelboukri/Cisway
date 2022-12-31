@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +9,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class LoginComponent {
   email: string = '';
   password: string = '';
-  
+  isValid: boolean = true;
+
   constructor (
     private _authService: AuthService
   ) {}
@@ -17,8 +18,12 @@ export class LoginComponent {
   login(email: string, password: string) {
     this._authService.login(email, password).subscribe(
       (data) => {
-        localStorage.setItem('UserToken', data.toString());
-      }
+        if (data) {
+          localStorage.setItem('UserToken', data.toString());
+        } else {
+          this.isValid = false;
+        }
+      },
     )
   }
 }
