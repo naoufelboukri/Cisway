@@ -34,7 +34,12 @@ export class RegisterComponent {
   ) { }
 
   onSubmit() {
-    if (this.controlUsername() && this.controlEmail() && this.controlPassword() && this.controlAddress()) {
+    const controlUsername = this.controlUsername();
+    const controlEmail = this.controlEmail();
+    const controlAddress = this.controlAddress();
+    const controlPassword = this.controlPassword();
+
+    if (controlUsername && controlEmail && controlAddress && controlPassword) {
       this._authService.register(this.username, this.password1, this.email, this.address).subscribe(
         (data) => {
           this.router.navigateByUrl('/');

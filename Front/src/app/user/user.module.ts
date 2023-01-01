@@ -5,9 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { RouterModule, Routes } from '@angular/router';
+import { CustomerGuard } from '../common/guard/customer.guard';
 
 const userRoutes: Routes = [
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [CustomerGuard] },
 ]
 
 @NgModule({

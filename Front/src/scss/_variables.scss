@@ -1,8 +1,11 @@
-$primary: #009688!important;
-$warning: rgb(208, 177, 24)!important;
-$dragon: rgb(137, 137, 205) ;
+$myPrimary: #009688!important;
+$myWarning: rgb(208, 177, 24)!important;
+
+// $myPrimaryForced: #a3ddd7;
+// $myWarningForced: rgb(177, 151, 20)!important;
+
+$white: #fff;
 
 $colors: 
-    ('primary', $primary), 
-    ('warning', $warning),
-    ('dragon', $dragon);
+    ('myPrimary', $myPrimary), 
+    ('myWarning', $myWarning);
