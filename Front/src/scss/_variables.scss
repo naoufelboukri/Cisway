@@ -1,1 +1,8 @@
-$primary: #009688;
+$primary: #009688!important;
+$warning: rgb(208, 177, 24)!important;
+$dragon: rgb(137, 137, 205) ;
+
+$colors: 
+    ('primary', $primary), 
+    ('warning', $warning),
+    ('dragon', $dragon);

@@ -34,6 +34,17 @@ export class AuthService {
     localStorage.removeItem('UserToken');
     this.loggedIn = false;
   }
+  
+  register(username: string, password: string, email: string, address: string, role_id: number = 2) {
+    return this.http.post(`${this.API_URL}/register`, {
+      username: username,
+      password: password,
+      email: email,
+      address: address,
+      role_id: role_id
+    });
+  }
+
 
   private log(response: any) {
     console.table(response);
@@ -43,4 +54,5 @@ export class AuthService {
     console.error(error);
     return of(errorValue);
   }
+
 }

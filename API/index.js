@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
  *    password: string(255), 
  *    email: string(255), 
  *    address: string(255), 
- *    [role_id]: int
+ *    (role_id): int
  */
 app.post('/register', async function(req, res, next) {
   try { await UsersController.register(req.body, res) } 
