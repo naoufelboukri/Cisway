@@ -22,6 +22,15 @@ export class ProductService {
     );
   }
 
+  getProductById(id: number) {
+    return this.http.get(`${this.API_URL}/product/${id}`).pipe(
+      tap((response) => {
+        this.log(response);
+      }),
+      catchError((error) => this.handleError(error, []))
+    )
+  }
+
   private log(response: any) {
     console.table(response);
   }
