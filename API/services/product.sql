@@ -9,7 +9,10 @@ CREATE TABLE `products` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  `description` text NOT NULL
+  `description` text NOT NULL,
+  `image` varchar(255),
+  `image2` varchar(255),
+  `image3` varchar(255)
 );
 
 -- Déchargement des données de la table `products`
