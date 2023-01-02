@@ -6,20 +6,20 @@ import { env } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class ProductService {
   private API_URL = env.API_URL;
 
   constructor(
     private http: HttpClient
   ) { }
 
-  me() {
-    return this.http.get(`${this.API_URL}/me`).pipe(
+  getProducts() {
+    return this.http.get(`${this.API_URL}/products`).pipe(
       tap((response) => {
         this.log(response);
       }),
       catchError((error) => this.handleError(error, undefined))
-    )
+    );
   }
 
   private log(response: any) {
