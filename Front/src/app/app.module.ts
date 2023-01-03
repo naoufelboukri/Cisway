@@ -10,11 +10,13 @@ import { JwtInterceptor } from './common/jwt.interceptor';
 import { CommonModule } from '@angular/common';
 import { ProductModule } from './container/product/product.module';
 import { PageNotFoundComponent } from './container/page-not-found/page-not-found.component';
+import { NavComponent } from './container/nav/nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,

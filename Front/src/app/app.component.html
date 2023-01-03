@@ -1,32 +1,7 @@
 <header>
-    <nav class="navbar navbar-expand-md">
-        <div class="container">
-            <span></span>
-            <h1><a class="navbar-brand fts-10 text-white letter-spacing-1" href="#">Cisway</a></h1>
-            <span data-bs-toggle="modal" data-bs-target="#account" class="me-3 fs-3 onClick">
-                <i class="fa-solid fa-user"></i>
-            </span>
-        </div>
-    </nav>
+    <app-nav></app-nav>
 </header>
     
 <main>
     <router-outlet></router-outlet>
 </main>
-
-
-<div class="modal fade" id="account">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Mon compte</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal">
-                </button>
-            </div>
-            <div class="modal-body">
-                <app-login *ngIf="!_authService.loggedIn"></app-login>
-                <app-profile *ngIf="_authService.loggedIn" user></app-profile>
-            </div>
-        </div>
-    </div>
-</div>

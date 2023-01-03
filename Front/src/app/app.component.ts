@@ -9,12 +9,8 @@ import { User } from './Models/User';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  
-  user: User;
 
-  constructor(
-    protected _authService: AuthService
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
     

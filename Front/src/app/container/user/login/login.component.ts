@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
+import { NavComponent } from '../../nav/nav.component';
 
 @Component({
   selector: 'app-login',
@@ -11,9 +14,14 @@ export class LoginComponent {
   password: string = '';
   isValid: boolean = true;
 
+  
   constructor (
-    private _authService: AuthService
-  ) {}
+    private _authService: AuthService,
+    private router: Router,
+    private navComponent: NavComponent,
+    ) {
+      
+    }
 
   login(email: string, password: string) {
     this._authService.login(email, password).subscribe(
@@ -21,7 +29,7 @@ export class LoginComponent {
         if (data) {
           this.isValid = true;
           localStorage.setItem('UserToken', data.toString());
-          this._authService.loggedIn = true;
+          this._authService.refreshToken();
         } else {
           this.isValid = false;
         }

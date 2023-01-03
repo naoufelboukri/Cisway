@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { DetailProductComponent } from './detail-product/detail-product.component';
 import { AuthGuard } from '../../common/guard/auth.guard';
+import { NavComponent } from '../nav/nav.component';
 
 const routesProduct: Routes = [
   { path: 'products', component: ListProductsComponent },
@@ -14,7 +15,7 @@ const routesProduct: Routes = [
 @NgModule({
   declarations: [
     ListProductsComponent,
-    DetailProductComponent
+    DetailProductComponent,
   ],
   imports: [
     BrowserModule,
