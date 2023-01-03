@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
-import { Product } from '../Product';
+import { Product } from '../../../Models/Product';
 
 @Component({
   selector: 'app-list-products',
@@ -19,7 +19,7 @@ export class ListProductsComponent /*implements OnInit*/{
   ngOnInit() {
     this._productService.getProducts().subscribe(
       (data) => {
-        for (const product of data.data) {
+        for (const product of data) {
           let currentProduct: Product = product;
           this.products.push(currentProduct);
         }

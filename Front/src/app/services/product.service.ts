@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, of, tap } from 'rxjs';
 import { env } from 'src/environments/environment';
+import { Product } from '../Models/Product';
 
 @Injectable({
   providedIn: 'root'
@@ -14,21 +15,23 @@ export class ProductService {
   ) { }
 
   getProducts() {
-    return this.http.get(`${this.API_URL}/products`).pipe(
-      tap((response) => {
-        this.log(response);
-      }),
-      catchError((error) => this.handleError(error, undefined))
-    );
+    return this.http.get<Product[]>(`${this.API_URL}/products`)
+    // .pipe(
+    //   tap((response) => {
+    //     this.log(response);
+    //   }),
+    //   catchError((error) => this.handleError(error, undefined))
+    // );
   }
 
   getProductById(id: number) {
-    return this.http.get(`${this.API_URL}/product/${id}`).pipe(
-      tap((response) => {
-        this.log(response);
-      }),
-      catchError((error) => this.handleError(error, []))
-    )
+    return this.http.get(`${this.API_URL}/product/${id}`)
+    // .pipe(
+    //   tap((response) => {
+    //     this.log(response);
+    //   }),
+    //   catchError((error) => this.handleError(error, []))
+    // )
   }
 
   private log(response: any) {

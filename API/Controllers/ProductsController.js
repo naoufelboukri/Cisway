@@ -15,7 +15,7 @@ class ProductsController {
         );
         const data = helper.emptyOrRows(rows);
         const meta = { page };
-        response.status(201).json({ data, meta });
+        response.status(201).json(data);
     }
 
     static async getProductsUser(id, page, res) {

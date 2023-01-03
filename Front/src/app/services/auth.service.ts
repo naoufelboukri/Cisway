@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { env } from 'src/environments/environment';
 import { BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
+import { AppComponent } from '../app.component';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,24 +16,27 @@ export class AuthService {
   public loggedIn: boolean = (localStorage.getItem('UserToken') !== null) ?? true;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {
     this.userSubject = new BehaviorSubject<string>(localStorage.getItem('UserToken') || '');
     this.user = this.userSubject.asObservable();
   }
 
   login(email: string, password: string) {
-    return this.http.post(`${this.API_URL}/login`, { email: email, password: password }).pipe(
-      tap((response) => {
-        this.loggedIn = true;
-        this.log(response)
-      }),
-      catchError((error) => this.handleError(error, undefined))
-    );
+    return this.http.post(`${this.API_URL}/login`, { email: email, password: password });
+    // .pipe(
+    //   tap((response) => {
+    //     this.loggedIn = true;
+    //      this.log(response)
+    //   }),
+    //   catchError((error) => this.handleError(error, undefined))
+    // );
   }
 
   logout() {
     localStorage.removeItem('UserToken');
+    this.router.navigate(['']);
     this.loggedIn = false;
   }
   

@@ -4,9 +4,11 @@ import { ListProductsComponent } from './list-products/list-products.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { DetailProductComponent } from './detail-product/detail-product.component';
+import { AuthGuard } from '../../common/guard/auth.guard';
 
 const routesProduct: Routes = [
-  { path: 'product/:id' , component: DetailProductComponent}
+  { path: 'products', component: ListProductsComponent },
+  { path: 'product/:id' , component: DetailProductComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

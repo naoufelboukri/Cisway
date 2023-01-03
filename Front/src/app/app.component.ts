@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
-import { User } from './user/User';
+import { User } from './Models/User';
 
 @Component({
   selector: 'app-root',
@@ -9,20 +9,14 @@ import { User } from './user/User';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  public username: string;
+  
+  user: User;
+
   constructor(
-    protected _authService: AuthService,
-    private _userService: UserService
+    protected _authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    if (this._authService.loggedIn) {
-      this._userService.me().subscribe(
-        (data) => {
-          this.username = data.username;
-        }
-      )
-    }
+    
   }
-
 }

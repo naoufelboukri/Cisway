@@ -19,7 +19,9 @@ export class LoginComponent {
     this._authService.login(email, password).subscribe(
       (data) => {
         if (data) {
+          this.isValid = true;
           localStorage.setItem('UserToken', data.toString());
+          this._authService.loggedIn = true;
         } else {
           this.isValid = false;
         }

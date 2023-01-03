@@ -1,12 +1,12 @@
 <div class="container">
-    <table class="table-primary table-responsive w-100 mb-3">
+    <table class="table-primary table-responsive w-100 mb-3" *ngIf="user">
         <tr>
             <td class="fs-15">Nom d'utilisateur</td>
-            <td class="text-end text-muted">{{ username }}</td>
+            <td class="text-end text-muted">{{ user.username }}</td>
         </tr>
         <tr>
             <td class="fs-15">Adresse Email</td>
-            <td class="text-end text-muted">{{ email }}</td>
+            <td class="text-end text-muted">{{ user.email }}</td>
         </tr>
     </table>
     <hr>
