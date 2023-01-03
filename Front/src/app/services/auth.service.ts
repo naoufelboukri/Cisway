@@ -6,6 +6,7 @@ import { AppComponent } from '../app.component';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { User } from '../Models/User';
+import { NavComponent } from '../container/nav/nav.component';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +16,12 @@ export class AuthService {
 
   public user: Observable<string>;
   public userSubject: BehaviorSubject<string>;
-  // public loggedIn: boolean = (localStorage.getItem('UserToken') !== null) ?? true;
-  public User: User | null;
+  public isLogged: boolean = (localStorage.getItem('UserToken') !== null) ? true : false;
+
+
   constructor(
     private http: HttpClient,
     private router: Router,
-    private _userService: UserService
   ) {
     this.userSubject = new BehaviorSubject<string>(localStorage.getItem('UserToken') || '');
     this.user = this.userSubject.asObservable();
@@ -28,20 +29,12 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http.post(`${this.API_URL}/login`, { email: email, password: password });
-    // .pipe(
-    //   tap((response) => {
-    //     this.loggedIn = true;
-    //      this.log(response)
-    //   }),
-    //   catchError((error) => this.handleError(error, undefined))
-    // );
   }
 
   logout() {
     localStorage.removeItem('UserToken');
+    this.refreshToken();
     this.router.navigate(['']);
-    this.User = null;
-    // this.loggedIn = false;
   }
   
   register(username: string, password: string, email: string, address: string, role_id: number = 2) {
@@ -54,14 +47,9 @@ export class AuthService {
     });
   }
 
-  setUser() {
-    this._userService.me().subscribe(
-      data => {
-        this.User = data;
-      }
-    )
+  refreshToken(): void {
+    this.isLogged = (localStorage.getItem('UserToken') !== null) ? true : false;
   }
-
 
   private log(response: any) {
     console.table(response);

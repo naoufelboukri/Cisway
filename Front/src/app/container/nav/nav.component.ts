@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { User } from 'src/app/Models/User';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -8,15 +8,12 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit{
-
-  user: User | null;
-
   constructor (
     protected _authService: AuthService
   ) { }
 
-  ngOnInit(): void {
-    
+  ngOnInit() {
+
   }
 
   goToProfile() {
