@@ -4,6 +4,8 @@ import { env } from 'src/environments/environment';
 import { BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
 import { AppComponent } from '../app.component';
 import { Router } from '@angular/router';
+import { UserService } from './user.service';
+import { User } from '../Models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +15,12 @@ export class AuthService {
 
   public user: Observable<string>;
   public userSubject: BehaviorSubject<string>;
-  public loggedIn: boolean = (localStorage.getItem('UserToken') !== null) ?? true;
-
+  // public loggedIn: boolean = (localStorage.getItem('UserToken') !== null) ?? true;
+  public User: User | null;
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private _userService: UserService
   ) {
     this.userSubject = new BehaviorSubject<string>(localStorage.getItem('UserToken') || '');
     this.user = this.userSubject.asObservable();
@@ -37,7 +40,8 @@ export class AuthService {
   logout() {
     localStorage.removeItem('UserToken');
     this.router.navigate(['']);
-    this.loggedIn = false;
+    this.User = null;
+    // this.loggedIn = false;
   }
   
   register(username: string, password: string, email: string, address: string, role_id: number = 2) {
@@ -48,6 +52,14 @@ export class AuthService {
       address: address,
       role_id: role_id
     });
+  }
+
+  setUser() {
+    this._userService.me().subscribe(
+      data => {
+        this.User = data;
+      }
+    )
   }
 
 

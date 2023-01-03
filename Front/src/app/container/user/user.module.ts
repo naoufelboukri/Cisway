@@ -6,6 +6,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomerGuard } from '../../common/guard/customer.guard';
+import { NavComponent } from '../nav/nav.component';
 
 const userRoutes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [CustomerGuard] },
@@ -16,7 +17,7 @@ const userRoutes: Routes = [
   declarations: [
     LoginComponent,
     ProfileComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     CommonModule,

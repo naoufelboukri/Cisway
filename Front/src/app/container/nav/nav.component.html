@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-md">
+    <div class="container">
+        <span></span>
+        <h1><a class="navbar-brand fts-10 text-white letter-spacing-1" href="#">Cisway</a></h1>
+        <span data-bs-toggle="modal" data-bs-target="#account" class="me-3 fs-3 onClick">
+            <i class="fa-solid fa-user"></i>
+        </span>
+    </div>
+</nav>
+
+
+<!-- <div class="modal fade" id="account" *ngIf="!_authService.loggedIn"> -->
+<div class="modal fade" id="account">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Connexion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-login ></app-login>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="modal fade" id="account" *ngIf="_authService.loggedIn">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Mon compte</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="!_authService">
+                <div class="d-flex flex-column w-50 m-auto">
+                    <button class="btn btn-outline-primary mb-2" >Visualiser mon compte</button>
+                    <button class="btn btn-danger" (click)="logout()">Déconnexion</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

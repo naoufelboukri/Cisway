@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent {
         if (data) {
           this.isValid = true;
           localStorage.setItem('UserToken', data.toString());
-          this._authService.loggedIn = true;
+          this._authService.setUser();
+          // this._authService.loggedIn = true;
         } else {
           this.isValid = false;
         }
