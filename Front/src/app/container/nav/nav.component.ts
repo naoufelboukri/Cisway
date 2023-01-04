@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/Models/User';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -11,6 +12,7 @@ export class NavComponent implements OnInit{
 
   constructor (
     protected _authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -20,13 +22,13 @@ export class NavComponent implements OnInit{
   goToProfile() {
 
   }
-  
+
   goToBag() {
     console.log('added')
   }
   
   goToAccount() {
-    console.log('added')
+    this.router.navigate(['/profile']);
   }
 
   logout() {

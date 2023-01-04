@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ export class LoginComponent {
   
   constructor (
     private _authService: AuthService,
+    private router: Router,
     ) {
       
     }
@@ -24,6 +26,7 @@ export class LoginComponent {
           this.isValid = true;
           localStorage.setItem('UserToken', data.toString());
           this._authService.refreshToken();
+          this.router.navigate(['']);
         } else {
           this.isValid = false;
         }

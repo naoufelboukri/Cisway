@@ -4,7 +4,7 @@
         <h1><a class="navbar-brand fts-10 text-white letter-spacing-1" href="/">Cisway</a></h1>
         <span data-bs-toggle="modal" data-bs-target="#account" class="me-3 fs-3 onClick">
             <i class="fa-solid fa-user-check text-warning" *ngIf="_authService.isLogged"></i>
-            <i class="fa-solid fa-user-xmark text-warning" *ngIf="!_authService.isLogged"></i>
+            <i class="fa-solid fa-user-xmark text-danger" *ngIf="!_authService.isLogged"></i>
         </span>
     </div>
 </nav>
@@ -37,7 +37,7 @@
                     </button>
                     <button class="btn btn-outline-primary mb-2" (click)="goToBag()">
                         <i class="fa-solid fa-cart-shopping"></i> Accéder au panier
-                    </button>
+                    </button> 
                     <hr class="mb-2">
                     <button class="btn btn-danger" (click)="logout()">Déconnexion</button>
                 </div>

@@ -1,13 +1,15 @@
 $myPrimary: #009688!important;
 $myWarning: rgb(208, 177, 24)!important;
 $error: rgb(100, 0, 0);
+$setting: rgb(179, 179, 179);
 
-// $myPrimaryForced: #a3ddd7;
-// $myWarningForced: rgb(177, 151, 20)!important;
+$gradiantWarning: linear-gradient(90deg, rgba(255,101,0,1) 0%, rgb(252, 193, 0) 100%) no-repeat;
 
 $white: #fff;
 
 $colors: 
     ('myPrimary', $myPrimary), 
     ('myWarning', $myWarning),
-    ('error', $error); 
+    ('error', $error),
+    ('setting', $setting),
+    ('gradiantWarning', $gradiantWarning); 

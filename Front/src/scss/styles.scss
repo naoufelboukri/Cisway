@@ -21,8 +21,12 @@
     }
 
     .btn-#{$name} {
-        background-color: $color; 
+        background: $color; 
         color: $white;
+    }
+
+    .bg-#{$name} {
+        background: $color;
     }
 }
 

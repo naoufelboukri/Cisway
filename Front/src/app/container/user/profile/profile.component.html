@@ -1,15 +1,67 @@
 <div class="container">
-    <table class="table-primary table-responsive w-100 mb-3" *ngIf="user">
-        <tr>
-            <td class="fs-15">Nom d'utilisateur</td>
-            <td class="text-end text-muted">{{ user.username }}</td>
-        </tr>
-        <tr>
-            <td class="fs-15">Adresse Email</td>
-            <td class="text-end text-muted">{{ user.email }}</td>
-        </tr>
-    </table>
-    <hr>
-    <button class="btn btn-outline-primary w-100 mb-2">Visualiser mon compte</button>
-    <button class="btn btn-danger w-100" (click)="logout()">Déconnexion</button>
+    <div class="card w-50 m-auto" *ngIf="user">
+        <div class="card-header d-flex justify-content-center flex-column p-4 bg-myPrimary">
+            <img class="m-auto rounded-circle" [src]="picturePath" alt="">
+            <span class="text-center mt-4 h3 fw-bold text-warning text-uppercase letter-spacing-2">{{ role }}</span>
+        </div>
+
+        <div class="card-body">
+            <div class="row mt-3">
+                <div class="col-4 ms-4">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="col-5">
+                    {{ user.username }}
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-4 ms-4">
+                    <i class="fa-sharp fa-solid fa-envelope"></i>
+                </div>
+                <div class="col-5">
+                    {{ user.email }}
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-4 ms-4">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div class="col-5">
+                    {{ user.address }}
+                </div>
+            </div>
+            <hr />
+
+            <div class="mt-5 text-center">
+                <button class="btn btn-gradiantWarning rounded-pill text-white pt-2 pb-2 ps-3 pe-3" (click)="goToEditProfile(user)">
+                    Modifier le profile
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- <table class="table w-75 m-auto">
+    <tbody>
+        <tr>
+            <td>
+                <i class="fa-solid fa-user"></i>
+            </td>
+            <td class="">{{ user.username }}</td>
+        </tr>
+        <tr>
+            <td>
+                <i class="fa-sharp fa-solid fa-envelope"></i>
+            </td>
+            <td class="">{{ user.email }}</td>
+        </tr>
+        <tr>
+            <td>
+                <i class="fa-solid fa-location-dot"></i>
+            </td>
+            <td class="">{{ user.address }}</td>
+        </tr>
+    </tbody>
+</table> -->
