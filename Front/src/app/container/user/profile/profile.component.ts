@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Address } from 'cluster';
+import { delay } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from '../../../Models/User';
@@ -23,15 +24,18 @@ export class ProfileComponent implements OnInit{
   ) { }
 
   ngOnInit() {
-    this.themeColor = this.getThemeColor();
-    this.picturePath = this.getRandomPicture()
+    this.themeColor = this._userService.getThemeColor();
+    this.picturePath = this._userService.getRandomPicture(this.themeColor);
     this._userService.me()
-      .subscribe(
-        data => {
-          this.user = data;
-          this.role = this.setRoleText(data.role_id);
-        }
-      )
+    .subscribe(
+      data => {
+        this.user = data;
+        this.role = this._userService.setRoleText(data.role_id);
+      },
+      err => {
+
+      }
+    )
   }
 
   goToEditProfile(user: User) {
@@ -40,21 +44,5 @@ export class ProfileComponent implements OnInit{
 
   logout() {
     this._authService.logout();
-  }
-
-  private getRandomPicture(): string {
-    return `/assets/profile-pictures/pp-${this.themeColor}.png`;
-  }
-
-  private getThemeColor(): string {
-    const colors = ['green', 'red', 'blue', 'yellow'];
-    return colors[Math.floor(Math.random() * colors.length)];
-  }
-
-  private setRoleText(roleId: number): string {
-    if (roleId === 0)
-      return 'Admin';
-    else 
-      return 'Guest';
   }
 }

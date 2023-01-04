@@ -41,27 +41,9 @@
             </div>
         </div>
     </div>
+    <div class="screen-center d-flex flex-column" *ngIf="!user">
+        <div class="spinner-border text-myPrimary m-auto mb-4 h5">
+            <span class="visually-hidden">Chargement</span>
+        </div>
+    </div>
 </div>
-
-<!-- <table class="table w-75 m-auto">
-    <tbody>
-        <tr>
-            <td>
-                <i class="fa-solid fa-user"></i>
-            </td>
-            <td class="">{{ user.username }}</td>
-        </tr>
-        <tr>
-            <td>
-                <i class="fa-sharp fa-solid fa-envelope"></i>
-            </td>
-            <td class="">{{ user.email }}</td>
-        </tr>
-        <tr>
-            <td>
-                <i class="fa-solid fa-location-dot"></i>
-            </td>
-            <td class="">{{ user.address }}</td>
-        </tr>
-    </tbody>
-</table> -->

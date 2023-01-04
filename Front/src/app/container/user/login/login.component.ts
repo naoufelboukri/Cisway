@@ -22,15 +22,14 @@ export class LoginComponent {
   login(email: string, password: string) {
     this._authService.login(email, password).subscribe(
       (data) => {
-        if (data) {
-          this.isValid = true;
-          localStorage.setItem('UserToken', data.toString());
-          this._authService.refreshToken();
-          this.router.navigate(['']);
-        } else {
-          this.isValid = false;
-        }
+        this.isValid = true;
+        localStorage.setItem('UserToken', data.toString());
+        this._authService.refreshToken();
+        this.router.navigate(['']);
       },
+      (err) => {
+        this.isValid = false;
+      }
     )
   }
 }

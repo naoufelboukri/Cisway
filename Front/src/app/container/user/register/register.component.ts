@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 const validator = require('validator');
 
 @Component({
@@ -19,27 +20,27 @@ export class RegisterComponent {
   errUsername: boolean = false;
   errEmail: boolean = false;
   errAddress: boolean = false;
-  errPassword: boolean = false;
 
   errorMessageUsername: string = "Le nom d'utilisateur est requis (4-255).";
   errorMessageEmail: string = "Merci d'entrer une adresse email valide.";
   errorMessageAddress: string = "L'adresse est requis (5-255).";
-  errorMessagePassword: string;
+  errorMessagePassword: string = '';
 
   serveurError: string = '';
 
   constructor (
     private _authService: AuthService,
+    private _userService: UserService,
     private router: Router
   ) { }
 
   onSubmit() {
-    const controlUsername = this.controlUsername();
-    const controlEmail = this.controlEmail();
-    const controlAddress = this.controlAddress();
-    const controlPassword = this.controlPassword();
+    this.errUsername = this._userService.usernameIsValid(this.username);
+    this.errEmail = this._userService.emailIsValid(this.email);
+    this.errAddress = this._userService.addressIsValid(this.address);
+    this.errorMessagePassword = this._userService.passwordIsValid(this.password1, this.password2);
 
-    if (controlUsername && controlEmail && controlAddress && controlPassword) {
+    if (!this.errUsername && !this.errEmail && !this.errAddress && this.errorMessagePassword === '') {
       this._authService.register(this.username, this.password1, this.email, this.address).subscribe(
         (data) => {
           this.router.navigateByUrl('/');
@@ -47,51 +48,7 @@ export class RegisterComponent {
         (error) => {
           this.serveurError = error.error.message;
         }
-        );
-      }
-  }
-
-  private controlUsername(): boolean {
-    if (this.username.length < 4 || this.username.length >= 255) {
-      this.errUsername = true;
-      return false;
+      );
     }
-    this.errUsername = false;
-    return true;
-  }
-
-  private controlEmail(): boolean {
-    if (!validator.isEmail(this.email)) {
-      this.errEmail = true;
-      return false;
-    }
-    this.errEmail = false;
-    return true;
-  }
-
-  private controlAddress(): boolean {
-    if (this.address.length < 5 || this.address.length >= 255) {
-      this.errAddress = true;
-      return false;
-    }
-    this.errAddress = false;
-    return true;
-  }
-
-  private controlPassword(): boolean {
-    if (!validator.isStrongPassword(this.password1)) {
-      this.errPassword = true;
-      this.errorMessagePassword = 'Le mot de passe doit contenir un chiffre, un symbole, une lettre majuscule et minuscule et doit être supérieur à 8 caractères.';
-      return false;
-    }
-
-    if (this.password1 !== this.password2) {
-      this.errPassword = true;
-      this.errorMessagePassword = 'Les mots de passe ne correspondent pas.';
-      return false;
-    }
-    this.errPassword = false;
-    this.errorMessagePassword = '';
-    return true;
   }
 }

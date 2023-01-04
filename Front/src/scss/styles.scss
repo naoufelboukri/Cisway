@@ -41,3 +41,10 @@ nav {
         color: white;
     }
 }
+
+.screen-center {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%);
+}

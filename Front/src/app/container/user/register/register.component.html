@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <span class="text-myWarning fst-italic" *ngIf="!errPassword && serveurError.length === 0">
+        <span class="text-myWarning fst-italic" *ngIf="errorMessagePassword.length === 0 && serveurError.length === 0">
             <i class="fa-sharp fa-solid fa-triangle-exclamation"></i> Le mot de passe doit contenir au moins les éléments suivant :
             <ul class="ms-3">
                 <li>1 majuscule</li>
@@ -45,7 +45,7 @@
                 <li>1 symbole</li>
             </ul>
         </span>
-        <div class="alert alert-danger mt-2" *ngIf="errPassword">
+        <div class="alert alert-danger mt-2" *ngIf="errorMessagePassword.length > 0">
             {{ errorMessagePassword }}
         </div>
         <div class="alert alert-danger mt-2" *ngIf="serveurError.length > 0">
