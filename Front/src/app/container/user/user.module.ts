@@ -27,6 +27,6 @@ const userRoutes: Routes = [
   exports: [
     LoginComponent,
     ProfileComponent
-  ]
+  ],
 })
 export class UserModule { }

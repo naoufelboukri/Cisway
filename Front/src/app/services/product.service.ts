@@ -25,7 +25,7 @@ export class ProductService {
   }
 
   getProductById(id: number) {
-    return this.http.get(`${this.API_URL}/product/${id}`)
+    return this.http.get<Product>(`${this.API_URL}/product/${id}`)
     // .pipe(
     //   tap((response) => {
     //     this.log(response);

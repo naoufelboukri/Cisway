@@ -10,7 +10,7 @@ import { Product } from '../../../Models/Product';
 })
 export class DetailProductComponent implements OnInit{
   product: Product|undefined;
-
+  reference: string;
   constructor (
     private route: ActivatedRoute, 
     private _productService: ProductService
@@ -18,15 +18,27 @@ export class DetailProductComponent implements OnInit{
 
     ngOnInit(): void {
       const productId: string|null = this.route.snapshot.paramMap.get('id');
+      this.reference = this.setReference(12);
       if (productId) {
         this._productService.getProductById(+productId).subscribe(
           data => {
-            console.log(data);
+            this.product = data;
           }
-          // (data: Product) => {
-          //   this.product = data;
-          // }
         )
       }
+    }
+
+    private setReference(size: number): string {
+      let reference: string = '';
+      const characters: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      for (let i = 0; i < size; i++) {
+        reference += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+
+      return reference;
+    }
+
+    addToBag() {
+      console.log('added')
     }
 }

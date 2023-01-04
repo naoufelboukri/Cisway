@@ -1,5 +1,6 @@
 $myPrimary: #009688!important;
 $myWarning: rgb(208, 177, 24)!important;
+$error: rgb(100, 0, 0);
 
 // $myPrimaryForced: #a3ddd7;
 // $myWarningForced: rgb(177, 151, 20)!important;
@@ -8,4 +9,5 @@ $white: #fff;
 
 $colors: 
     ('myPrimary', $myPrimary), 
-    ('myWarning', $myWarning);
+    ('myWarning', $myWarning),
+    ('error', $error); 

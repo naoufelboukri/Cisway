@@ -1,7 +1,7 @@
 <div class="container mt-5">
         <div class="row row-cols-4">
             <div *ngFor="let product of products">
-                <div class="card mt-2 mb-2 onClick" (click)="goToProduct(product)" productBorderCard>
+                <div class="card mt-2 mb-2 onClick" (click)="goToProduct(product)" appErrorMessage>
                     <img *ngIf='product.image1' [src]="product.image1" class="card-img-top" [alt]="product.name">
                     <img *ngIf="!product.image1" src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="card-img-top" [alt]="product.name"> 
                 <div class="card-body">

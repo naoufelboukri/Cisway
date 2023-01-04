@@ -21,6 +21,8 @@ const routesProduct: Routes = [
     BrowserModule,
     CommonModule,
     RouterModule.forChild(routesProduct)
+  ],
+  providers: [
   ]
 })
 export class ProductModule { }

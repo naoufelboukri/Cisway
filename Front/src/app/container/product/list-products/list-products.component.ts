@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from '../../../Models/Product';
 
@@ -14,6 +15,7 @@ export class ListProductsComponent /*implements OnInit*/{
   constructor(
     private _productService: ProductService,
     private router: Router,
+    private _authService: AuthService,
   ) { }
 
   ngOnInit() {

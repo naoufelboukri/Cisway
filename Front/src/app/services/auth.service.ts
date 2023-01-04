@@ -17,7 +17,7 @@ export class AuthService {
   public user: Observable<string>;
   public userSubject: BehaviorSubject<string>;
   public isLogged: boolean = (localStorage.getItem('UserToken') !== null) ? true : false;
-
+  public userLogged: User | null;
 
   constructor(
     private http: HttpClient,

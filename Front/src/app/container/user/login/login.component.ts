@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
-import { NavComponent } from '../../nav/nav.component';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,8 +13,6 @@ export class LoginComponent {
   
   constructor (
     private _authService: AuthService,
-    private router: Router,
-    private navComponent: NavComponent,
     ) {
       
     }

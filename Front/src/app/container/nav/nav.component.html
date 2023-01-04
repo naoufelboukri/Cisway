@@ -1,16 +1,16 @@
-<nav class="navbar navbar-expand-md">
+<nav class="navbar navbar-expand-md mb-5">
     <div class="container">
         <span></span>
-        <h1><span class="navbar-brand fts-10 text-white letter-spacing-1 onClick">Cisway</span></h1>
+        <h1><a class="navbar-brand fts-10 text-white letter-spacing-1" href="/">Cisway</a></h1>
         <span data-bs-toggle="modal" data-bs-target="#account" class="me-3 fs-3 onClick">
-            <span class="fst-10 me-3" *ngIf="_authService.isLogged">Logged</span>
-            <i class="fa-solid fa-user"></i>
+            <i class="fa-solid fa-user-check text-warning" *ngIf="_authService.isLogged"></i>
+            <i class="fa-solid fa-user-xmark text-warning" *ngIf="!_authService.isLogged"></i>
         </span>
     </div>
 </nav>
 
 
-<div class="modal fade" id="account">
+<div class="modal fade" id="account" #modalLogin>
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" *ngIf="!_authService.isLogged">
             <div class="modal-header">
@@ -31,27 +31,17 @@
             </div>
             <div class="modal-body">
                 <div class="d-flex flex-column w-50 m-auto">
-                    <button class="btn btn-outline-primary mb-2" >Visualiser mon compte</button>
+                    <button class="btn btn-outline-primary mb-2" (click)="goToAccount()">
+                        <i class="fa-solid fa-user"></i>
+                        Visualiser mon compte
+                    </button>
+                    <button class="btn btn-outline-primary mb-2" (click)="goToBag()">
+                        <i class="fa-solid fa-cart-shopping"></i> Accéder au panier
+                    </button>
+                    <hr class="mb-2">
                     <button class="btn btn-danger" (click)="logout()">Déconnexion</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- <div class="modal fade" id="account" *ngIf="_authService.isLogged">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Mon compte</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal">
-                </button>
-            </div>
-            <div class="modal-body" *ngIf="_authService.isLogged">
-                <div class="d-flex flex-column w-50 m-auto">
-                    <button class="btn btn-outline-primary mb-2" >Visualiser mon compte</button>
-                    <button class="btn btn-danger" (click)="logout()">Déconnexion</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
