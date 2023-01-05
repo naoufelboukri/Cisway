@@ -9,12 +9,14 @@ import { CustomerGuard } from '../../common/guard/customer.guard';
 import { NavComponent } from '../nav/nav.component';
 import { AuthGuard } from 'src/app/common/guard/auth.guard';
 import { EditComponent } from './edit/edit.component';
+import { MyProductsComponent } from './my-products/my-products.component';
 
 const userRoutes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [CustomerGuard] },
   { path: 'login', component: LoginComponent, canActivate: [CustomerGuard] },
   { path: 'profile/edit/:id', component: EditComponent, canActivate: [AuthGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'profile/products', component: MyProductsComponent, canActivate: [AuthGuard]}
 ]
 
 @NgModule({
@@ -22,7 +24,8 @@ const userRoutes: Routes = [
     LoginComponent,
     ProfileComponent,
     RegisterComponent,
-    EditComponent
+    EditComponent,
+    MyProductsComponent
   ],
   imports: [
     CommonModule,

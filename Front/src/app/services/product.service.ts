@@ -15,23 +15,15 @@ export class ProductService {
   ) { }
 
   getProducts() {
-    return this.http.get<Product[]>(`${this.API_URL}/products`)
-    // .pipe(
-    //   tap((response) => {
-    //     this.log(response);
-    //   }),
-    //   catchError((error) => this.handleError(error, undefined))
-    // );
+    return this.http.get<Product[]>(`${this.API_URL}/products`);
   }
 
   getProductById(id: number) {
-    return this.http.get<Product>(`${this.API_URL}/product/${id}`)
-    // .pipe(
-    //   tap((response) => {
-    //     this.log(response);
-    //   }),
-    //   catchError((error) => this.handleError(error, []))
-    // )
+    return this.http.get<Product>(`${this.API_URL}/product/${id}`);
+  }
+
+  getProductsFromUser(id: number) {
+    return this.http.get<Product[]>(`${this.API_URL}/products/${id}`);
   }
 
   private log(response: any) {

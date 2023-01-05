@@ -42,6 +42,10 @@ export class ProfileComponent implements OnInit{
     this.router.navigate(['profile/edit', user.id]);
   }
 
+  goToMyProducts() {
+    this.router.navigate(['profile/products']);
+  }
+
   logout() {
     this._authService.logout();
   }

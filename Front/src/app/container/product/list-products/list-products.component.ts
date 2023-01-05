@@ -21,6 +21,7 @@ export class ListProductsComponent /*implements OnInit*/{
   ngOnInit() {
     this._productService.getProducts().subscribe(
       (data) => {
+        console.log(data);
         for (const product of data) {
           let currentProduct: Product = product;
           this.products.push(currentProduct);
