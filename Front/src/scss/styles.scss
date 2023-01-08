@@ -13,6 +13,10 @@
     .flex-gap-#{$i} {
         gap: $i + 0px;
     }
+
+    .width-#{$i} {
+        width: $i * 1%;
+    }
 }
 
 @each $name, $color in $colors {
@@ -27,6 +31,10 @@
 
     .bg-#{$name} {
         background: $color;
+    }
+
+    .table-#{$name} {
+        background-color: $color;
     }
 }
 
@@ -47,4 +55,8 @@ nav {
     top: 50%;
     right: 50%;
     transform: translate(50%);
+}
+
+html {
+    position: relative;
 }

@@ -99,8 +99,8 @@ app.delete('/product/:id', Auth.authenticateToken, async function(req, res, next
   }
 })
 
-/* PUT update user */
-app.put('/product/:id', Auth.rootAuthentificationToken, async function(req, res, next) {
+/* PUT update product */
+app.put('/product/:id', Auth.authenticateToken, async function(req, res, next) {
   try { await ProductsController.update(req.body, Number(req.params.id), res) }
   catch (err) {
     console.error(`Error while getting users`, err.message);

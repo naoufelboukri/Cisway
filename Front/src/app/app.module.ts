@@ -12,6 +12,7 @@ import { ProductModule } from './container/product/product.module';
 import { PageNotFoundComponent } from './container/page-not-found/page-not-found.component';
 import { NavComponent } from './container/nav/nav.component';
 import { ErrorComponent } from './container/error/error.component';
+import { FooterComponent } from './container/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ErrorComponent } from './container/error/error.component';
     PageNotFoundComponent,
     NavComponent,
     ErrorComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

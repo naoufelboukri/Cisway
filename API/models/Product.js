@@ -108,7 +108,7 @@ class Product {
     async setName(name) {
         let output = helper.validate('name', name, ['required', 'length(2-255)']);
         if (output === true) {
-            const result = await db.query(`UPDATE products SET name = '${name}' WHERE email = '${this.name}'`);
+            const result = await db.query(`UPDATE products SET name = '${name}' WHERE id = '${this.id}'`);
             if (!result.affectedRows) {
                 output = 'Error during the process';
             } else {
@@ -121,7 +121,7 @@ class Product {
     async setPrice(price) {
         let output = helper.validate('price', price, ['required', 'number']);
         if (output === true) {
-            const result = await db.query(`UPDATE products SET price = '${price}' WHERE email = '${this.price}'`);
+            const result = await db.query(`UPDATE products SET price = '${price}' WHERE id = '${this.id}'`);
             if (!result.affectedRows) {
                 output = 'Error during the process';
             } else {
@@ -134,7 +134,7 @@ class Product {
     async setDescription(description) {
         let output = helper.validate('description', description, ['required']);
         if (output === true) {
-            const result = await db.query(`UPDATE products SET description = '${description}' WHERE email = '${this.description}'`);
+            const result = await db.query(`UPDATE products SET description = '${description}' WHERE id = '${this.id}'`);
             if (!result.affectedRows) {
                 output = 'Error during the process';
             } else {

@@ -128,9 +128,9 @@ class User {
             INNER JOIN users ON users.id = product_user.user_id 
             WHERE users.id = ${this.id}
         `);
-        const output = {};
-        Object.assign(output, result);
-        return output;
+        // const output = {};
+        // Object.assign(output, result);
+        return result;
     }
 }
 

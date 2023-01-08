@@ -71,7 +71,6 @@ export class EditComponent implements OnInit{
     if (!this.errUsername && !this.errAddress && this.errPassword === '') {
       this._userService.update(this.user.id, myObject).subscribe(
         data => {
-          console.log(data);
           this.router.navigate(['profile']);
         },
         error => {
@@ -79,5 +78,9 @@ export class EditComponent implements OnInit{
         }
       )
     }
+  }
+
+  cancel() {
+    this.router.navigate(['profile']);
   }
 }

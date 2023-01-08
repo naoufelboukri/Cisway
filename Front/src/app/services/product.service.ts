@@ -26,6 +26,15 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.API_URL}/products/${id}`);
   }
 
+  create(object: Object) {
+    // return this.http.post(`${this.API_URL}/product/create`, object);
+    return this.http.post(`${this.API_URL}/product/create`, object);
+  }
+
+  update(id: number, object: object) {
+    return this.http.put(`${this.API_URL}/product/${id}`, object);
+  }
+
   private log(response: any) {
     console.table(response);
   }

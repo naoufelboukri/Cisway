@@ -14,7 +14,6 @@ class ProductsController {
             `SELECT * FROM products LIMIT ${offset},${config.listPerPage}`
         );
         const data = helper.emptyOrRows(rows);
-        const meta = { page };
         response.status(201).json(data);
     }
 
@@ -22,7 +21,6 @@ class ProductsController {
         const user = await User.find(id);
         if (user !== false) {
             const products = await user.getProducts();
-            console.log(products);
             res.status(200).json(products);
         } else {
             res.status(401).json({ message: 'User not found' });
@@ -74,25 +72,25 @@ class ProductsController {
             status: 200
         };
 
-        const product = Product.find(id);
+        const product = await Product.find(id);
         if (product) {
-            for (index in request) {
+            for (const index in request) {
                 if (index === 'name') {
-                    const newName = await setName(request.name);
+                    const newName = await product.setName(request.name);
                     if (newName !== true) {
                         json.message = newName;
                         json.status = 401;
                     }
                 }
                 if (index === 'price') {
-                    const newPrice = await setPrice(request.price);
+                    const newPrice = await product.setPrice(request.price);
                     if (newPrice !== true) {
                         json.message = newPrice;
                         json.status = 401;
                     }
                 }
                 if (index === 'description') {
-                    const description = await setDescription(request.description);
+                    const description = await product.setDescription(request.description);
                     if (description !== true) {
                         json.message = description;
                         json.status = 401;
@@ -103,7 +101,7 @@ class ProductsController {
             json.status = 401;
             json.message = 'Product not found';
         }
-        response.status(json.status).json(json);
+        response.status(json.status).json(product);
     }
 }
 
