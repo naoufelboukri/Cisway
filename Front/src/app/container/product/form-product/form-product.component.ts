@@ -56,4 +56,12 @@ export class FormProductComponent implements OnInit {
       }
     }
   }
+
+  deleteProduct (product: Product) {
+    this._productService.delete(product.id).subscribe(
+      data => {
+        this.router.navigate(['/profile/products']);
+      }
+    )
+  }
 }

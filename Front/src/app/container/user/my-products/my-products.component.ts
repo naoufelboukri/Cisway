@@ -24,14 +24,14 @@ export class MyProductsComponent implements OnInit {
     this._userService.me().subscribe(
       data => {
         this.user = data;
-      }
-    )
-    this._productService.getProductsFromUser(3).subscribe(
-      (data) => {
-        for (const product of data) {
-          let currentProduct: Product = product;
-          this.products.push(currentProduct);
-        }
+        this._productService.getProductsFromUser(this.user.id).subscribe(
+          (data) => {
+            for (const product of data) {
+              let currentProduct: Product = product;
+              this.products.push(currentProduct);
+            }
+          }
+        )
       }
     )
   }

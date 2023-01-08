@@ -5,7 +5,10 @@
         </div>
 
         <div class="card-body">
-            <app-form-product [product]="product"></app-form-product>
+            <app-form-product [product]="product" *ngIf="product"></app-form-product>
+            <div *ngIf="!product" class="alert alert-warning text-center">
+                Le produit recherché n'existe pas !
+            </div>
         </div>
     </div>
 </div>
