@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/Models/Product';
@@ -14,8 +15,14 @@ export class FormProductComponent implements OnInit {
   isNew: boolean;
   errorMessageServeur: string = '';
 
+  file1: any;
+  file2: any;
+  file3: any;
+
+
   constructor(
     private _productService: ProductService,
+    private httpClient: HttpClient,
     private router: Router
   ) { }
 
@@ -24,6 +31,9 @@ export class FormProductComponent implements OnInit {
   }
 
   onSubmit(): void {
+    let dataForm = new FormData();
+    dataForm.set('name', 'hello');
+    dataForm.set('file', this.file1);
     if (this.product) {
       let productReceipt = {
         name: this.product.name,
@@ -36,11 +46,10 @@ export class FormProductComponent implements OnInit {
       if (this.isNew) {
         this._productService.create(productReceipt).subscribe(
           data => {
-            console.log(data);
             this.router.navigate(['/profile/products']);
           },
           error => {
-            console.log(error)
+            this.router.navigate(['/profile/products']);
           }
         )
       } else {
@@ -49,8 +58,7 @@ export class FormProductComponent implements OnInit {
             this.router.navigate(['/profile/products']);
           },
           error => {
-            // this.errorMessageServeur = error.error.message;
-            console.log(error)
+            this.errorMessageServeur = error.error.message;
           }
         )
       }
