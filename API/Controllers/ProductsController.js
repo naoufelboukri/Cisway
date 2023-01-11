@@ -61,47 +61,55 @@ class ProductsController {
             } else {
                 response.status(400).json({ message: 'Error during the process..' });
             }
-        } else {   
+        } else {
             response.status(400).json({ message: 'Product not found !' });
         }
     }
 
-    static async update(request, id, response) {
+    static async update(request, id, email, response) {
         let json = {
             message: 'Product updated successfully',
             status: 200
         };
-
+        const userLogged = await User.whereEmail(email);
         const product = await Product.find(id);
-        if (product) {
-            for (const index in request) {
-                if (index === 'name') {
-                    const newName = await product.setName(request.name);
-                    if (newName !== true) {
-                        json.message = newName;
-                        json.status = 401;
+        if (await userLogged.hasProduct(id) || userLogged.roleId === 1) {
+            if (product) {
+                for (const index in request) {
+                    if (index === 'name') {
+                        const newName = await product.setName(request.name);
+                        if (newName !== true) {
+                            json.message = newName;
+                            json.status = 401;
+                        }
+                    }
+                    if (index === 'price') {
+                        const newPrice = await product.setPrice(request.price);
+                        if (newPrice !== true) {
+                            json.message = newPrice;
+                            json.status = 401;
+                        }
+                    }
+                    if (index === 'description') {
+                        const description = await product.setDescription(request.description);
+                        if (description !== true) {
+                            json.message = description;
+                            json.status = 401;
+                        }
                     }
                 }
-                if (index === 'price') {
-                    const newPrice = await product.setPrice(request.price);
-                    if (newPrice !== true) {
-                        json.message = newPrice;
-                        json.status = 401;
-                    }
+                if (json.status === 200) {
+                    json.message = product;
                 }
-                if (index === 'description') {
-                    const description = await product.setDescription(request.description);
-                    if (description !== true) {
-                        json.message = description;
-                        json.status = 401;
-                    }
-                }
+            } else {
+                json.status = 401;
+                json.message = 'Product not found';
             }
         } else {
             json.status = 401;
             json.message = 'Product not found';
         }
-        response.status(json.status).json(product);
+        response.status(json.status).json(json.message);
     }
 }
 

@@ -101,7 +101,7 @@ app.delete('/product/:id', Auth.authenticateToken, async function(req, res, next
 
 /* PUT update product */
 app.put('/product/:id', Auth.authenticateToken, async function(req, res, next) {
-  try { await ProductsController.update(req.body, Number(req.params.id), res) }
+  try { await ProductsController.update(req.body, Number(req.params.id), req.user['email'], res) }
   catch (err) {
     console.error(`Error while getting users`, err.message);
     next(err);

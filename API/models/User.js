@@ -132,6 +132,16 @@ class User {
         // Object.assign(output, result);
         return result;
     }
+
+    async hasProduct(productId) {
+        const request = await db.query(`
+        SELECT id 
+        FROM product_user 
+        WHERE product_id = ${productId}
+        AND user_id = ${this.id}`);
+
+        return request.length > 0;
+    }
 }
 
 function hashPassword(pass) {
