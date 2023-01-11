@@ -16,7 +16,7 @@ class UsersController {
         );
         const data = helper.emptyOrRows(rows);
         const meta = { page };
-        response.status(201).json({ data, meta });
+        response.status(201).json(rows);
     }
 
     // Create new account
@@ -49,7 +49,9 @@ class UsersController {
         if (result.length > 0) {
           const token = jwt.verify(result[0]['password'], process.env.ACCESS_TOKEN);
           if (request.password === token['password']) {
-            const accessToken = jwt.sign(request, process.env.ACCESS_TOKEN);
+            const accessToken = jwt.sign(request, process.env.ACCESS_TOKEN, {
+                expiresIn: '3h'
+            });
             return { accessToken: accessToken, message: "Connection success", status: 200};
           } 
         }
