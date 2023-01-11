@@ -10,9 +10,6 @@ CREATE TABLE `products` (
   `name` varchar(255) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `description` text NOT NULL,
-  `image` varchar(255),
-  `image2` varchar(255),
-  `image3` varchar(255)
 );
 
 -- Déchargement des données de la table `products`
@@ -44,8 +41,7 @@ CREATE TABLE `roles` (
 -- Déchargement des données de la table `roles`
 INSERT INTO `roles` (`id`, `name`) VALUES
 (1, 'admin'),
-(2, 'user'),
-(3, 'guest');
+(2, 'user');
 
 -- --------------------------------------------------------
 
