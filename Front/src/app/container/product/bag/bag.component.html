@@ -1,9 +1,9 @@
 <div class="container border p-4">
-    <h2 class="h2 text-uppercase fw-semibold">Mes produits</h2>
+    <h2 class="h2 text-uppercase fw-semibold">Mon panier</h2>
     <hr class="mb-4">
 
     <div>
-        <div class="row border mb-3 p-4 position-relative" *ngFor="let product of products">
+        <div class="row border mb-3 p-4 position-relative onClick product" *ngFor="let product of products">
             <div class="col-3">
                 <img [src]="product.image1" alt="" class="w-100">
             </div>
@@ -25,9 +25,40 @@
         </div>
 
         <div class="row float-end mt-5">
-            <button class="btn btn-warning" (click)="buy()">
+            <!-- <button class="btn btn-warning" (click)="buy()"> -->
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#paiement">
                 Procéder au paiement
             </button>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="paiement" #modalPaiement>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="h5 modal-title">Paiement réussi</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <table class="mb-3">
+                    <tbody>
+                        <tr *ngFor="let product of products">
+                            <th class="text-start border col-9 pt-2 pb-2">{{ product.name }}</th>
+                            <td class="border col-3">{{ product.price }} €</td>
+                        </tr>
+                        <tr class="table-setting">
+                            <td class="border text-start fw-semibold pt-3 pb-3  ">Balance</td>
+                            <td class="border text-danger fw-semibold">-{{ total }} €</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button class="btn btn-warning float-end" data-bs-dismiss="modal" (click)="buy()">
+                    Passer la commande
+                </button>
+            </div>
         </div>
     </div>
 </div>

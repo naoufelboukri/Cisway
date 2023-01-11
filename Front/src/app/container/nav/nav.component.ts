@@ -41,6 +41,11 @@ export class NavComponent implements OnInit{
   }
   
   goToAccount() {
+    this._userService.me().subscribe(
+      data => { 
+        this.router.navigate(['/profile'], { state: {data: data}})
+      }
+    )
     this.router.navigate(['/profile']);
   }
 

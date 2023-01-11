@@ -6,7 +6,7 @@ export const PANIER: Product[] = [
         name: 'Nokia Smart TV - 43 Pouces Television',
         price: 279,
         description: " Système d'exploitation : Android TVTM avec plus de 7 000 applications pour le streaming, la musique, les jeux, etc. Services de streaming pris en charge* : Netflix, YouTube, Prime Video, Disney+ et bien d'autres encore ",
-        image1: 'https://image.darty.com/darty?type=image&source=/market/2022/10/26/mkp_4iQ1lcWw_MDN2g.jpeg&width=450&height=300&quality=90&effects=Pad(CC,FFFFFF)',
+        image1: 'https://c0.lestechnophiles.com/images.frandroid.com/wp-content/uploads/2021/07/xiaomi-mi-tv-p1-55-frandroid-2021-768x768.png?resize=290,290&key=3a6df595',
         image2: 'truc',
         image3: 'trhc'
     },
@@ -32,7 +32,7 @@ export const PANIER: Product[] = [
         id: 104,
         name: 'Lego 71773 Ninjago Le Tout-Terrain Dragon d’Or de Kai',
         price: 74.99,
-        description: 'Une télévision de malade',
+        description: 'Le jouet LEGO NINJAGO Le dragon légendaire de Lloyd contient une figurine dragon articulée avec des ailes qui peuvent être bougées d’avant en arrière ',
         image1: 'https://m.media-amazon.com/images/I/91E65GQFWaL._AC_SL1500_.jpg',
         image2: 'truc',
         image3: 'trhc'

@@ -31,10 +31,10 @@
             </div>
             <div class="modal-body">
                 <div class="d-flex flex-column w-50 m-auto">
-                    <button class="btn btn-outline-primary mb-2" (click)="goToAccount()" data-bs-dismiss="modal">
+                    <a class="btn btn-outline-primary mb-2" [routerLink]="" (click)="goToAccount()" data-bs-dismiss="modal">
                         <i class="fa-solid fa-user"></i>
                         Visualiser mon compte
-                    </button>
+                    </a>
                     <button class="btn btn-outline-primary mb-2" (click)="goToBag()" data-bs-dismiss="modal">
                         <i class="fa-solid fa-cart-shopping"></i> Accéder au panier
                     </button> 
