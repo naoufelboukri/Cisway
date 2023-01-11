@@ -38,6 +38,9 @@
                     <button class="btn btn-outline-primary mb-2" (click)="goToBag()" data-bs-dismiss="modal">
                         <i class="fa-solid fa-cart-shopping"></i> Accéder au panier
                     </button> 
+                    <button class="btn btn-outline-warning mb-2" (click)="goToAdmin()" data-bs-dismiss="modal" *ngIf="isAdmin">
+                        <i class="fa-solid fa-lock"></i> Espace Administrateur
+                    </button> 
                     <hr class="mb-2">
                     <button class="btn btn-danger" (click)="logout()">Déconnexion</button>
                 </div>

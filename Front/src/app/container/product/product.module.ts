@@ -10,12 +10,14 @@ import { CreateProductComponent } from './create-product/create-product.componen
 import { FormProductComponent } from './form-product/form-product.component';
 import { FormsModule } from '@angular/forms';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { BagComponent } from './bag/bag.component';
 
 const routesProduct: Routes = [
   { path: 'products', component: ListProductsComponent },
   { path: 'product/create', component: CreateProductComponent, canActivate: [AuthGuard] },
   { path: 'product/edit/:id', component: EditProductComponent, canActivate: [AuthGuard] },
-  { path: 'product/:id' , component: DetailProductComponent, canActivate: [AuthGuard]}
+  { path: 'product/:id' , component: DetailProductComponent, canActivate: [AuthGuard]},
+  { path: 'panier', component: BagComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -25,6 +27,7 @@ const routesProduct: Routes = [
     CreateProductComponent,
     FormProductComponent,
     EditProductComponent,
+    BagComponent,
   ],
   imports: [
     BrowserModule,

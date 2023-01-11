@@ -25,6 +25,10 @@ export class UserService {
     return this.http.put(`${this.API_URL}/user/${id}`, object);
   }
 
+  getUsers() {
+    return this.http.get<User[]>(`${this.API_URL}/users`);
+  }
+
   getRandomPicture(color: string): string {
     return `/assets/profile-pictures/pp-${color}.png`;
   }

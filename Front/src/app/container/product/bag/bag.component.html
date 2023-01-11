@@ -1,0 +1,33 @@
+<div class="container border p-4">
+    <h2 class="h2 text-uppercase fw-semibold">Mes produits</h2>
+    <hr class="mb-4">
+
+    <div>
+        <div class="row border mb-3 p-4 position-relative" *ngFor="let product of products">
+            <div class="col-3">
+                <img [src]="product.image1" alt="" class="w-100">
+            </div>
+            <div class="col-9 ps-5">
+                <h3 class="h3 fw-bold">{{ product.name }}</h3>
+                <p>
+                    {{ product.description }}
+                </p>
+                <span class="h4 fw-bold text-danger price">{{ product.price }}€</span>
+            </div>
+        </div>
+        <div class="row border mt-4 p-4">
+            <div class="col-3 h2 fw-semibold text-danger">
+                TOTAL
+            </div>
+            <div class="col-9 float-end text-end h2">
+                {{ total }} €
+            </div>
+        </div>
+
+        <div class="row float-end mt-5">
+            <button class="btn btn-warning" (click)="buy()">
+                Procéder au paiement
+            </button>
+        </div>
+    </div>
+</div>

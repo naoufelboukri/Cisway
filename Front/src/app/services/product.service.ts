@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, of, tap } from 'rxjs';
 import { env } from 'src/environments/environment';
+import { PANIER } from '../container/product/mock-products';
 import { Product } from '../Models/Product';
 
 @Injectable({
@@ -45,5 +46,10 @@ export class ProductService {
   private handleError(error: Error, errorValue: any) {
     console.error(error);
     return of(errorValue);
+  }
+
+  getBag() {
+    const products: Product[] = PANIER;
+    return products;
   }
 }

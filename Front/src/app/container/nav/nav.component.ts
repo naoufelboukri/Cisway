@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { Router } from '@angular/router';
 import { User } from 'src/app/Models/User';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-nav',
@@ -10,13 +11,25 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavComponent implements OnInit{
 
+  isAdmin: boolean | null = false;
+
   constructor (
     protected _authService: AuthService,
+    private _userService: UserService,
     private router: Router
   ) { }
 
   ngOnInit() {
-
+    this._userService.me().subscribe(
+      data => {
+        if (data.role_id === 1) {
+          this.isAdmin = true;
+        }
+      },
+      err => {
+        this.isAdmin = null;
+      }
+    )
   }
 
   goToProfile() {
@@ -24,11 +37,15 @@ export class NavComponent implements OnInit{
   }
 
   goToBag() {
-    console.log('added')
+    this.router.navigate(['/panier']);
   }
   
   goToAccount() {
     this.router.navigate(['/profile']);
+  }
+
+  goToAdmin() {
+    this.router.navigate(['admin']);
   }
 
   logout() {
