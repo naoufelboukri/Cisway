@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from 'cluster';
 import { delay } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,7 +11,7 @@ import { User } from '../../../Models/User';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit, OnChanges{
   user: User | null;
   picturePath: string;
   themeColor: string;
@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit{
   constructor (
     private _authService: AuthService,
     private _userService: UserService,
+    // private route: ActivatedRoute,
     private router: Router,
   ) { }
 
@@ -36,6 +37,10 @@ export class ProfileComponent implements OnInit{
 
       }
     )
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    
   }
 
   goToEditProfile(user: User) {

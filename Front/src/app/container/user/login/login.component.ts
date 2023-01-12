@@ -24,8 +24,8 @@ export class LoginComponent {
       (data) => {
         this.isValid = true;
         localStorage.setItem('UserToken', data.toString());
-        this._authService.refreshToken();
-        this.router.navigate(['']);
+        // this._authService.refreshToken();
+        window.location.reload();
       },
       (err) => {
         this.isValid = false;

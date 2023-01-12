@@ -28,12 +28,18 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    return this.http.post(`${this.API_URL}/login`, { email: email, password: password });
+    return this.http.post<string>(`${this.API_URL}/login`, { email: email, password: password }).pipe(
+      tap((user: string) => {
+        if(user){
+          this.userSubject.next(user);
+        }
+      })
+    )
   }
 
   logout() {
     localStorage.removeItem('UserToken');
-    this.refreshToken();
+    // this.refreshToken();
     this.router.navigate(['']);
   }
   

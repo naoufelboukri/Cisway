@@ -31,7 +31,8 @@
             </div>
             <div class="modal-body">
                 <div class="d-flex flex-column w-50 m-auto">
-                    <a class="btn btn-outline-primary mb-2" [routerLink]="" (click)="goToAccount()" data-bs-dismiss="modal">
+                    <a class="btn btn-outline-primary mb-2" (click)="goToAccount()" data-bs-dismiss="modal">
+                    <!-- <a class="btn btn-outline-primary mb-2" [routerLink]="['/profile']" [queryParams]="{object: user}" data-bs-dismiss="modal"> -->
                         <i class="fa-solid fa-user"></i>
                         Visualiser mon compte
                     </a>
@@ -42,7 +43,7 @@
                         <i class="fa-solid fa-lock"></i> Espace Administrateur
                     </button> 
                     <hr class="mb-2">
-                    <button class="btn btn-danger" (click)="logout()">Déconnexion</button>
+                    <button class="btn btn-danger" data-bs-dismiss="modal" (click)="logout()">Déconnexion</button>
                 </div>
             </div>
         </div>
