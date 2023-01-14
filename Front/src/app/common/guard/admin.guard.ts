@@ -28,6 +28,9 @@ export class AdminGuard implements CanActivate {
                   profile.error(false);
                 }
                 profile.complete();
+              },
+              err => {
+                profile.error(false);
               }
             )
           }

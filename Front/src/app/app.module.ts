@@ -9,10 +9,11 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { JwtInterceptor } from './common/jwt.interceptor';
 import { CommonModule } from '@angular/common';
 import { ProductModule } from './container/product/product.module';
-import { PageNotFoundComponent } from './container/page-not-found/page-not-found.component';
-import { NavComponent } from './container/nav/nav.component';
-import { ErrorComponent } from './container/error/error.component';
-import { FooterComponent } from './container/footer/footer.component';
+import { PageNotFoundComponent } from './container/partials/page-not-found/page-not-found.component';
+import { NavComponent } from './container/partials/nav/nav.component';
+import { ErrorComponent } from './container/partials/error/error.component';
+import { FooterComponent } from './container/partials/footer/footer.component';
+import { AdminModule } from './container/admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { FooterComponent } from './container/footer/footer.component';
     CommonModule,
     UserModule,
     ProductModule,
+    AdminModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule

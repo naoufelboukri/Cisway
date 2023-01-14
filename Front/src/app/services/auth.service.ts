@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { env } from 'src/environments/environment';
-import { BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
-import { AppComponent } from '../app.component';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { UserService } from './user.service';
-import { User } from '../Models/User';
-import { NavComponent } from '../container/nav/nav.component';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +34,6 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('UserToken');
-    this.router.navigate(['products']);
     window.location.reload();
   }
   

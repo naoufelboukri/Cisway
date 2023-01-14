@@ -5,7 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { DetailProductComponent } from './detail-product/detail-product.component';
 import { AuthGuard } from '../../common/guard/auth.guard';
-import { NavComponent } from '../nav/nav.component';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { FormProductComponent } from './form-product/form-product.component';
 import { FormsModule } from '@angular/forms';

@@ -9,10 +9,8 @@ import { CustomerGuard } from '../../common/guard/customer.guard';
 import { AuthGuard } from 'src/app/common/guard/auth.guard';
 import { EditComponent } from './edit/edit.component';
 import { MyProductsComponent } from './my-products/my-products.component';
-import { AdminComponent } from './admin/admin.component';
-import { AdminUsersComponent } from './admin-users/admin-users.component';
-import { AdminProductsComponent } from './admin-products/admin-products.component';
-import { AdminEditUserComponent } from './admin-edit-user/admin-edit-user.component';
+import { AdminUsersComponent } from '../admin/admin-users/admin-users.component';
+import { AdminEditUserComponent } from '../admin/admin-edit-user/admin-edit-user.component';
 import { AdminGuard } from 'src/app/common/guard/admin.guard';
 import { EditProductComponent } from '../product/edit-product/edit-product.component';
 
@@ -22,10 +20,6 @@ const userRoutes: Routes = [
   { path: 'profile/edit/:id', component: EditComponent, canActivate: [AuthGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   { path: 'profile/products', component: MyProductsComponent, canActivate: [AuthGuard]},
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
-  { path: 'admin/users', component: AdminUsersComponent, canActivate: [AdminGuard]},
-  { path: 'admin/products', component: AdminProductsComponent, canActivate: [AdminGuard]},
-  { path: 'admin/user/edit/:id', component: EditComponent, canActivate: [AdminGuard]},
   { path: 'admin/product/edit/:id', component: EditProductComponent, canActivate: [AdminGuard]},
 ]
 
@@ -36,9 +30,7 @@ const userRoutes: Routes = [
     RegisterComponent,
     EditComponent,
     MyProductsComponent,
-    AdminComponent,
     AdminUsersComponent,
-    AdminProductsComponent,
     AdminEditUserComponent
   ],
   imports: [

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomerGuard } from './common/guard/customer.guard';
-import { ErrorComponent } from './container/error/error.component';
-import { PageNotFoundComponent } from './container/page-not-found/page-not-found.component';
+import { ErrorComponent } from './container/partials/error/error.component';
+import { PageNotFoundComponent } from './container/partials/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: 'error', component: ErrorComponent, canActivate: [CustomerGuard]},
