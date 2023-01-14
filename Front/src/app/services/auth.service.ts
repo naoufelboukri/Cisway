@@ -17,7 +17,6 @@ export class AuthService {
   public user: Observable<string>;
   public userSubject: BehaviorSubject<string>;
   public isLogged: boolean = (localStorage.getItem('UserToken') !== null) ? true : false;
-  public userLogged: User | null;
 
   constructor(
     private http: HttpClient,
@@ -39,7 +38,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('UserToken');
-    this.router.navigate(['']);
+    this.router.navigate(['products']);
     window.location.reload();
   }
   
