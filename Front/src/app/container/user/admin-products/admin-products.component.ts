@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Product } from 'src/app/Models/Product';
 import { User } from 'src/app/Models/User';
+import { ProductService } from 'src/app/services/product.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -10,20 +12,27 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AdminProductsComponent implements OnInit{
   user: User;
-
+  products: Product[] = [];
   constructor (
-    private _userService: UserService,
+    private _productService: ProductService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this._userService.me().subscribe(
+    this._productService.getProducts().subscribe(
       data => {
-        this.user = data;
-        if (this.user.role_id !== 1) {
-          this.router.navigate(['']);
+        for (const product of data) {
+          this.products.push(product);
         }
       }
     )
+  }
+
+  newProduct() {
+
+  }
+
+  goToProduct(product: Product) {
+
   }
 }

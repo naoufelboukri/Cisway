@@ -13,18 +13,18 @@ import { AdminComponent } from './admin/admin.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { AdminProductsComponent } from './admin-products/admin-products.component';
 import { AdminEditUserComponent } from './admin-edit-user/admin-edit-user.component';
+import { AdminGuard } from 'src/app/common/guard/admin.guard';
 
 const userRoutes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [CustomerGuard] },
   { path: 'login', component: LoginComponent, canActivate: [CustomerGuard] },
   { path: 'profile/edit/:id', component: EditComponent, canActivate: [AuthGuard]},
-  // { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], data: { user: user} },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   { path: 'profile/products', component: MyProductsComponent, canActivate: [AuthGuard]},
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
-  { path: 'admin/users', component: AdminUsersComponent, canActivate: [AuthGuard]},
-  { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard]},
-  { path: 'admin/user/edit/:id', component: EditComponent, canActivate: [AuthGuard]}
+  { path: 'admin/users', component: AdminUsersComponent, canActivate: [AdminGuard]},
+  { path: 'admin/products', component: AdminProductsComponent, canActivate: [AdminGuard]},
+  { path: 'admin/user/edit/:id', component: EditComponent, canActivate: [AdminGuard]}
 ]
 
 @NgModule({

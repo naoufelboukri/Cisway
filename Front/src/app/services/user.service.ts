@@ -44,7 +44,7 @@ export class UserService {
   }
 
   setRoleText(roleId: number): string {
-    if (roleId === 0)
+    if (roleId === 1)
       return 'Admin';
     else 
       return 'Guest';

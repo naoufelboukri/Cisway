@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from 'src/app/Models/User';
 import { UserService } from 'src/app/services/user.service';
 
@@ -13,7 +13,6 @@ export class AdminUsersComponent implements OnInit{
 
   constructor (
     private _userService: UserService,
-    private route: ActivatedRoute,
     private router: Router,
   ) { }
 
