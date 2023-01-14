@@ -10,7 +10,6 @@ import { AuthGuard } from 'src/app/common/guard/auth.guard';
 import { EditComponent } from './edit/edit.component';
 import { MyProductsComponent } from './my-products/my-products.component';
 import { AdminUsersComponent } from '../admin/admin-users/admin-users.component';
-import { AdminEditUserComponent } from '../admin/admin-edit-user/admin-edit-user.component';
 import { AdminGuard } from 'src/app/common/guard/admin.guard';
 import { EditProductComponent } from '../product/edit-product/edit-product.component';
 
@@ -31,7 +30,6 @@ const userRoutes: Routes = [
     EditComponent,
     MyProductsComponent,
     AdminUsersComponent,
-    AdminEditUserComponent
   ],
   imports: [
     CommonModule,

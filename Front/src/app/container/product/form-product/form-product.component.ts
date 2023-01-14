@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/Models/Product';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -12,6 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class FormProductComponent implements OnInit {
   @Input() product: Product;
 
+  isAdmin: boolean;
   isNew: boolean;
   errorMessageServeur: string = '';
 
@@ -22,11 +22,12 @@ export class FormProductComponent implements OnInit {
 
   constructor(
     private _productService: ProductService,
-    private httpClient: HttpClient,
+    private route: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.isAdmin = this.route.snapshot.url[0].path === 'admin';
     this.isNew = this.product.id === 0;
   }
 
@@ -46,7 +47,7 @@ export class FormProductComponent implements OnInit {
       if (this.isNew) {
         this._productService.create(productReceipt).subscribe(
           data => {
-            this.router.navigate(['/profile/products']);
+            this.redirect();
           },
           error => {
             this.errorMessageServeur = error.error.message;
@@ -55,7 +56,7 @@ export class FormProductComponent implements OnInit {
       } else {
         this._productService.update(this.product.id, productReceipt).subscribe(
           data => {
-            this.router.navigate(['/profile/products']);
+            this.redirect();
           },
           error => {
             this.errorMessageServeur = error.error.message;
@@ -68,8 +69,16 @@ export class FormProductComponent implements OnInit {
   deleteProduct (product: Product) {
     this._productService.delete(product.id).subscribe(
       data => {
-        this.router.navigate(['/profile/products']);
+        this.redirect();
       }
     )
+  }
+
+  private redirect() {
+    if (this.isAdmin) {
+      this.router.navigate(['/admin/products']);
+    } else {
+      this.router.navigate(['/profile/products']);
+    }
   }
 }
