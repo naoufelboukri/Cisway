@@ -15,8 +15,8 @@ router.put('/:id', Auth.authenticateToken, async function (req, res, next) {
 })
 
 /* GET information of one unique user */
-router.get('/:id', Auth.authenticateToken, async function(req, res, next) {
-  try { await UsersController.getUser(req.params.id, req.user['email'], res) } 
+router.get('/:id', Auth.rootAuthentificationToken, async function(req, res, next) {
+  try { await UsersController.getUser(req.params.id, res) } 
   catch (err) {
     console.error(`Error while creating user`, err.message);
     next(err);

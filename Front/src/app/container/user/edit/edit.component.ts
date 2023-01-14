@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/Models/User';
 import { UserService } from 'src/app/services/user.service';
 
@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class EditComponent implements OnInit{
   user: User;
+  isAdmin: boolean;
   picturePath: string;
   themeColor: string;
   role: string;
@@ -31,19 +32,34 @@ export class EditComponent implements OnInit{
 
   constructor(
     private _userService: UserService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void{
+    this.isAdmin = this.route.snapshot.url[0].path === 'admin';
+
     this.themeColor = this._userService.getThemeColor();
     this.picturePath = this._userService.getRandomPicture(this.themeColor)
-    this._userService.me()
+    if (!this.isAdmin) {
+      this._userService.me()
       .subscribe(
         data => {
           this.user = data;
           this.role = this._userService.setRoleText(data.role_id);
         }
-      )
+        )
+    } else if (this.isAdmin) {
+      let userId: string | null = this.route.snapshot.paramMap.get('id');
+      if (userId) {
+        this._userService.getUserById(+userId).subscribe(
+          data => {
+            this.user = data;
+            this.role = this._userService.setRoleText(data.role_id);
+          }
+        )
+      }
+    }
   }
 
   save() {
@@ -71,7 +87,11 @@ export class EditComponent implements OnInit{
     if (!this.errUsername && !this.errAddress && this.errPassword === '') {
       this._userService.update(this.user.id, myObject).subscribe(
         data => {
-          this.router.navigate(['profile']);
+          if (this.isAdmin) {
+            this.router.navigate(['admin/users']);
+          } else {
+            this.router.navigate(['profile']);
+          }
         },
         error => {
           this.errorMessageServeur = error.error.message;
@@ -81,6 +101,10 @@ export class EditComponent implements OnInit{
   }
 
   cancel() {
-    this.router.navigate(['profile']);
+    if (this.isAdmin) {
+      this.router.navigate(['admin/users']);
+    } else {
+      this.router.navigate(['profile']);
+    }
   }
 }

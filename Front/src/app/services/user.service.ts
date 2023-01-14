@@ -29,9 +29,14 @@ export class UserService {
     return this.http.get<User[]>(`${this.API_URL}/users`);
   }
 
+  getUserById(id: number) {
+    return this.http.get<User>(`${this.API_URL}/user/${id}`);
+  }
+
   getRandomPicture(color: string): string {
     return `/assets/profile-pictures/pp-${color}.png`;
   }
+
 
   getThemeColor(): string {
     const colors = ['green', 'red', 'blue', 'yellow'];

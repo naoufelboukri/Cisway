@@ -18,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="onClick" *ngFor="let user of users" (click)="goToUser(user)">
+            <tr class="onClick" *ngFor="let user of users" (click)="goToUser(user)"  >
                 <th>{{ user.id }}</th>
                 <td class="text-center">{{ user.username }}</td>
                 <td class="text-center">{{ user.email }}</td>
