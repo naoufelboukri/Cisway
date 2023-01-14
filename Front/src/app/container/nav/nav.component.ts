@@ -20,6 +20,7 @@ export class NavComponent implements OnInit{
   ) { }
 
   ngOnInit() {
+    console.log('dxdc');
     this._userService.me().subscribe(
       data => {
         if (data.role_id === 1) {

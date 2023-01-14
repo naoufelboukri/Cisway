@@ -39,8 +39,8 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('UserToken');
-    // this.refreshToken();
     this.router.navigate(['']);
+    window.location.reload();
   }
   
   register(username: string, password: string, email: string, address: string, role_id: number = 2) {
