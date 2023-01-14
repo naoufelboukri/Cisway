@@ -37,33 +37,9 @@
         </div>
     </div>
         
-    <!-- <hr class="mb-4">
-
-    <div>
-        <span class="fw-semibold badge bg-setting">Champs facultatifs</span>
-        <div class="row mt-4 mb-3">
-            <label for="image1" class="col-2 form-label">Image 1</label>
-            <div class="col-10">
-                <input type="file" name="image1" id="image1" class="form-control" (change)="getFile($event, 1)">
-            </div>
-        </div>
-        <div class="row mt-4 mb-3">
-            <label for="image2" class="col-2 form-label">Image 2</label>
-            <div class="col-10">
-                <input type="file" name="image2" id="image2" class="form-control" (change)="getFile($event, 2)">
-            </div>
-        </div>
-        <div class="row mt-4 mb-3">
-            <label for="image3" class="col-2 form-label">Image 3</label>
-            <div class="col-10">
-                <input type="file" name="image3" id="image3" class="form-control" (change)="getFile($event, 3)">
-            </div>
-        </div>
-        <div class="alert alert-danger" *ngIf="errorMessageServeur.length > 0">
-            <span class="fw-semibold">Erreur serveur :</span> {{ errorMessageServeur }}
-        </div>
-    </div> -->
-    
+    <div class="alert alert-danger" *ngIf="errorMessageServeur.length > 0">
+        <span class="fw-semibold">Erreur serveur :</span> {{ errorMessageServeur }}
+    </div>
     
     <hr *ngIf="product" />
     <span class="text-myWarning fts-0 fst-italic fw-lighter" *ngIf="product">Ne modifier que les champs souhaités</span>

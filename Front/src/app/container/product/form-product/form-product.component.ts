@@ -49,7 +49,7 @@ export class FormProductComponent implements OnInit {
             this.router.navigate(['/profile/products']);
           },
           error => {
-            this.router.navigate(['/profile/products']);
+            this.errorMessageServeur = error.error.message;
           }
         )
       } else {
