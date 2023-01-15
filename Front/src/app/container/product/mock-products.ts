@@ -8,7 +8,8 @@ export const PANIER: Product[] = [
         description: " Système d'exploitation : Android TVTM avec plus de 7 000 applications pour le streaming, la musique, les jeux, etc. Services de streaming pris en charge* : Netflix, YouTube, Prime Video, Disney+ et bien d'autres encore ",
         image1: 'https://c0.lestechnophiles.com/images.frandroid.com/wp-content/uploads/2021/07/xiaomi-mi-tv-p1-55-frandroid-2021-768x768.png?resize=290,290&key=3a6df595',
         image2: 'truc',
-        image3: 'trhc'
+        image3: 'trhc',
+        username: '',
     },
     {
         id: 102,
@@ -17,7 +18,8 @@ export const PANIER: Product[] = [
         description: 'Léger et maniable, le souffleur de feuilles sans fil Einhell GE-LB 36/210 Li E-Solo est un appareil fiable et simple d’utilisation qui permet un nettoyage rapide et facile des surfaces et des coins de votre propriété. ',
         image1: 'https://www.barthelemy-jardinage.com/wp-content/uploads/2022/10/products-120IB.png',
         image2: 'truc',
-        image3: 'trhc'
+        image3: 'trhc',
+        username: '',
     },
     {
         id: 103,
@@ -26,7 +28,8 @@ export const PANIER: Product[] = [
         description: 'Équipée de puces avancées G-CR 7535, 70 W / Set (35W / Ampoule), DC9-32V, 14000LM / Set (7000LM / Ampoule), 6000K xenon white, fournit un excellent éclairage.',
         image1: 'https://m.media-amazon.com/images/I/61x5xY34lVL._AC_SY450_.jpg',
         image2: '',
-        image3: ''
+        image3: '',
+        username: '',
     },
     {
         id: 104,
@@ -35,6 +38,7 @@ export const PANIER: Product[] = [
         description: 'Le jouet LEGO NINJAGO Le dragon légendaire de Lloyd contient une figurine dragon articulée avec des ailes qui peuvent être bougées d’avant en arrière ',
         image1: 'https://m.media-amazon.com/images/I/91E65GQFWaL._AC_SL1500_.jpg',
         image2: 'truc',
-        image3: 'trhc'
+        image3: 'trhc',
+        username: '',
     },
 ]

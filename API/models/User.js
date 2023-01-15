@@ -122,7 +122,7 @@ class User {
 
     async getProducts() {
         const result = await db.query(`
-            SELECT products.*
+            SELECT products.*, users.username
             FROM products 
             INNER JOIN product_user ON products.id = product_user.product_id 
             INNER JOIN users ON users.id = product_user.user_id 

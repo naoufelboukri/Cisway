@@ -18,7 +18,8 @@ export class CreateProductComponent implements OnInit{
       description: '',
       image1: '',
       image2: '',
-      image3: ''
+      image3: '',
+      username: ''
     };
   }
 }
