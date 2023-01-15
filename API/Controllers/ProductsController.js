@@ -9,12 +9,13 @@ class ProductsController {
 
     // Return all users on JSON format 
     static async getProducts(page = 1, response) {
-        const offset = helper.getOffset(page, config.listPerPage);
         const rows = await db.query(
-            `SELECT * FROM products LIMIT ${offset},${config.listPerPage}`
+            `SELECT products.*, users.username
+            FROM products
+            JOIN product_user ON products.id = product_user.product_id
+            JOIN users ON product_user.user_id = users.id`
         );
-        const data = helper.emptyOrRows(rows);
-        response.status(201).json(data);
+        response.status(201).json(rows);
     }
 
     static async getProductsUser(id, page, res) {
