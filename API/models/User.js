@@ -122,25 +122,33 @@ class User {
 
     async getProducts() {
         const result = await db.query(`
-            SELECT products.*, users.username
-            FROM products 
-            INNER JOIN product_user ON products.id = product_user.product_id 
-            INNER JOIN users ON users.id = product_user.user_id 
-            WHERE users.id = ${this.id}
+            SELECT products.id, products.name, products.price, products.description, users.username
+            FROM products
+            JOIN users ON products.user_id = users.id   
+            WHERE products.user_id = ${this.id}
         `);
-        // const output = {};
-        // Object.assign(output, result);
         return result;
     }
 
     async hasProduct(productId) {
         const request = await db.query(`
         SELECT id 
-        FROM product_user 
-        WHERE product_id = ${productId}
+        FROM products
+        WHERE id = ${productId}
         AND user_id = ${this.id}`);
 
         return request.length > 0;
+    }
+
+    async associate(productID, userId = null) {
+        const user = userId !== null ? userId : this.id;
+        const result = await db.query(
+            `INSERT INTO panier
+            (product_id, user_id)
+            VALUES
+            (${productID}, ${user});`
+        );
+        return (result.affectedRows) ? true : false;
     }
 }
 

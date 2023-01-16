@@ -28,6 +28,10 @@ CREATE TABLE `roles` (
   `name` varchar(50) NOT NULL
 );
 
+INSERT INTO `roles` (`id`, `name`) VALUES 
+(1, 'admin'), 
+(2, 'user');
+
 ALTER TABLE `panier`
   ADD PRIMARY KEY (`id`),
   ADD KEY `panier_products` (`product_id`),

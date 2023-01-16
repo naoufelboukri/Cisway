@@ -32,4 +32,14 @@ router.delete('/:id', Auth.authenticateToken, async function(req, res, next) {
   }
 })
 
+router.post('/add', Auth.authenticateToken, async function(req, res, next) {
+  try { 
+    await UsersController.addToBag(req.body, req.user['email'], res) 
+  }
+  catch (err) {
+    console.error(`Error while creating user`, err.message);
+    next(err);
+  }
+})
+
 module.exports = router;

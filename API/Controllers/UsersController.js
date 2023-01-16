@@ -138,6 +138,24 @@ class UsersController {
             response.status(401).json({ message: 'User not found' });
         }
     }
+
+    // Add product in my bag
+    static async addToBag(request, email, response) {
+        const productId = request['productId'];
+        const userTarget = request['userId'];
+        const userLogged = await User.whereEmail(email);
+
+        if (productId) {
+            const result = userLogged.roleId === 1 ? await userLogged.associate(productId, userTarget) : await userLogged.associate(productId);
+            if (result) {
+                response.status(200).json({ message: 'Product added to the bag successfully' });
+            } else {
+                response.status(401).json({ message: 'Error during the process.. '});
+            }
+        } else {
+            response.status(401).json({ message: 'Please enter a product value'});
+        }
+    }
 }
 
 module.exports = UsersController;

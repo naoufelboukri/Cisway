@@ -10,10 +10,9 @@ class ProductsController {
     // Return all users on JSON format 
     static async getProducts(page = 1, response) {
         const rows = await db.query(
-            `SELECT products.*, users.username
+            `SELECT products.id, products.name, products.price, products.description, users.username
             FROM products
-            JOIN product_user ON products.id = product_user.product_id
-            JOIN users ON product_user.user_id = users.id`
+            JOIN users ON products.user_id = users.id`
         );
         response.status(201).json(rows);
     }
@@ -30,22 +29,25 @@ class ProductsController {
 
     static async create(request, response, email = null) {
         const userLogged = (email !== null) ? await User.whereEmail(email) : null;
-        const product = Product.build(request);
-        if (product.active) {
-            const result = await product.save();
-            const resultAssociation = await product.associate(userLogged.id);
-            if (result && resultAssociation && userLogged !== null) {
-                response.status(200).json({ message: 'Product created successfully' });
+        if (userLogged) {
+            const product = Product.build(request, userLogged.id);
+            if (product.active) {
+                const result = await product.save();
+                if (result) {
+                    response.status(200).json({ message: 'Product created successfully' });
+                } else {
+                    response.status(401).json({ message: 'Error during the process..' });
+                }
             } else {
-                response.status(401).json({ message: 'Error during the process..' });
+                response.status(401).json({ message: product });
             }
         } else {
-            response.status(401).json({ message: product });
+            response.status(403).json({ message: 'You have to be logged' });
         }
     }
 
     static async getProduct(id, response) {
-        const product = await Product.find(id);
+        const product = await Product.getProduct(id);
         if (product !== false) {
             response.status(200).json(product);
         } else {
