@@ -110,7 +110,6 @@ class UsersController {
 
     // // Get Information of user (root)
     static async getUser(id, response) {
-        // const userLogged = await User.whereEmail(emailLogged);
         const user = await User.find(id);
         if (user.active) {
             response.status(200).json(user);
@@ -155,6 +154,17 @@ class UsersController {
         } else {
             response.status(401).json({ message: 'Please enter a product value'});
         }
+    }
+
+    static async getPanier(email, response) {
+        const userLogged = await User.whereEmail(email);
+        const result = await userLogged.getPanier();
+        if (result) {
+            response.status(200).json(result);
+        } else {
+            response.status(401).json({ message: 'Error during the process' });
+        }
+
     }
 }
 

@@ -70,6 +70,16 @@ app.get('/users' , Auth.rootAuthentificationToken, async function(req, res, next
   }
 });
 
+app.get('/users/panier', Auth.authenticateToken, async function(req, res, next) {
+  try { 
+    await UsersController.getPanier(req.user['email'], res) 
+  }
+  catch (err) {
+    console.error(`Error while creating user`, err.message);
+    next(err);
+  }
+})
+
 app.use("/user", userRouter);
 
 /* POST Create New Product */

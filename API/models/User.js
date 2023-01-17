@@ -150,6 +150,18 @@ class User {
         );
         return (result.affectedRows) ? true : false;
     }
+
+    async getPanier(userId = null) {
+        const result = await db.query(
+            `SELECT products.id, products.name, products.price, products.description, users.username
+            FROM products
+            JOIN panier ON products.id = panier.product_id
+            JOIN users ON users.id = products.user_id
+            WHERE users.id = ${userId ?? this.id}
+            `
+        );
+        return result;
+    }
 }
 
 function hashPassword(pass) {

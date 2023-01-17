@@ -40,12 +40,12 @@ class Product {
 
     static async getProduct(id) {
         const result = await db.query(
-            `SELECT products.id, products.name, products.price, users.username 
+            `SELECT products.id, products.name, products.description, products.price, users.username 
             FROM products
             JOIN users ON products.user_id = users.id
             WHERE products.id = ${id};`
         );
-        return result;
+        return result[0];
     }
 
     async save() {

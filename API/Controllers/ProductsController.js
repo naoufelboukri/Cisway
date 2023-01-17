@@ -48,6 +48,7 @@ class ProductsController {
 
     static async getProduct(id, response) {
         const product = await Product.getProduct(id);
+        console.log(product);
         if (product !== false) {
             response.status(200).json(product);
         } else {
