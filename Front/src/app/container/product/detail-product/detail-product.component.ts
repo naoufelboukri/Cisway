@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
+import { UserService } from 'src/app/services/user.service';
 import { Product } from '../../../Models/Product';
 
 @Component({
@@ -11,9 +12,11 @@ import { Product } from '../../../Models/Product';
 export class DetailProductComponent implements OnInit{
   product: Product|undefined;
   reference: string;
+  success: boolean = false;
   constructor (
     private route: ActivatedRoute, 
-    private _productService: ProductService
+    private _productService: ProductService,
+    private _userService: UserService
   ) { }
 
     ngOnInit(): void {
@@ -39,6 +42,12 @@ export class DetailProductComponent implements OnInit{
     }
 
     addToBag() {
-      console.log('added')
+      if (this.product) {
+        this._userService.addToBag(this.product.id).subscribe(
+          data => {
+            this.success = true;
+          }
+        )
+      }
     }
 }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, of, tap } from 'rxjs';
 import { env } from 'src/environments/environment';
+import { Product } from '../Models/Product';
 import { User } from '../Models/User';
 
 const validator = require('validator');
@@ -31,6 +32,14 @@ export class UserService {
 
   getUserById(id: number) {
     return this.http.get<User>(`${this.API_URL}/user/${id}`);
+  }
+
+  addToBag(productId: number, userId: number|null = null) {
+    return this.http.post(`${this.API_URL}/user/add`, {productId: productId, userId: userId});
+  }
+
+  getPanier() {
+    return this.http.get<Product[]>(`${this.API_URL}/users/panier`);
   }
 
   getRandomPicture(color: string): string {
